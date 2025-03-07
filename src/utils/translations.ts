@@ -12,9 +12,9 @@ export const translations = {
     privacy: 'Privacy Policy',
     imprint: 'Imprint',
     terms: 'Terms',
+    language: 'Language',
     
     // Coach Section
-    coach: 'Coach',
     musicEducation: 'Music Education',
     coachSubtitle: 'Empowering students to discover their musical potential through personalized coaching.',
     coachingPhilosophy: 'My Coaching Philosophy',
@@ -44,9 +44,9 @@ export const translations = {
     privacy: 'Datenschutz',
     imprint: 'Impressum',
     terms: 'AGB',
+    language: 'Sprache',
     
     // Coach Section
-    coach: 'Coach',
     musicEducation: 'Musikunterricht',
     coachSubtitle: 'Ich helfe Schülern, ihr musikalisches Potenzial durch personalisierten Unterricht zu entdecken.',
     coachingPhilosophy: 'Meine Unterrichtsphilosophie',

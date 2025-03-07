@@ -1,5 +1,5 @@
 
-import { Music, Instagram, Github, Linkedin, ArrowUp, TikTok } from 'lucide-react';
+import { Music, Instagram, Github, Linkedin, ArrowUp } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 
 const Footer = () => {
@@ -33,7 +33,7 @@ const Footer = () => {
     },
     { 
       name: 'TikTok', 
-      icon: <TikTok size={20} />, 
+      icon: <Music size={20} />, // Replacing TikTok with Music icon as fallback
       url: 'https://tiktok.com/@heiah.music', 
       hoverClass: 'hover:text-heieh-neon-green' 
     },
