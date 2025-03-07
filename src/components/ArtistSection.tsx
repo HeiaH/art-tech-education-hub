@@ -1,0 +1,173 @@
+
+import { useState } from 'react';
+import { Music, Camera, Pencil, Palette, Settings } from 'lucide-react';
+import { useRevealAnimation } from '../utils/animations';
+
+// Categories for the artist section
+const categories = [
+  { id: 'music', label: 'Music', icon: <Music size={18} /> },
+  { id: 'photography', label: 'Photography', icon: <Camera size={18} /> },
+  { id: 'drawing', label: 'Drawing', icon: <Pencil size={18} /> },
+  { id: 'painting', label: 'Painting', icon: <Palette size={18} /> },
+  { id: 'production', label: 'Production', icon: <Settings size={18} /> },
+];
+
+const ArtistSection = () => {
+  const [activeCategory, setActiveCategory] = useState('music');
+  const { ref: sectionRef, isVisible: sectionVisible } = useRevealAnimation();
+  
+  // Handle category change
+  const handleCategoryChange = (categoryId: string) => {
+    setActiveCategory(categoryId);
+  };
+
+  // Render category content based on active category
+  const renderCategoryContent = () => {
+    switch (activeCategory) {
+      case 'music':
+        return (
+          <div className="neumorph p-6 rounded-2xl animate-fade-in">
+            <h3 className="text-2xl font-heading mb-4">Music</h3>
+            <div className="aspect-video bg-heieh-gray rounded-lg overflow-hidden">
+              <div className="w-full h-full flex items-center justify-center text-white/50">
+                SoundCloud Player Embed
+              </div>
+            </div>
+            <p className="mt-4 text-white/70">
+              Explore my musical creations, from electronic productions to experimental sound design.
+              My work spans multiple genres and often incorporates digital and analog elements.
+            </p>
+          </div>
+        );
+      case 'photography':
+        return (
+          <div className="neumorph p-6 rounded-2xl animate-fade-in">
+            <h3 className="text-2xl font-heading mb-4">Photography</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="aspect-square bg-heieh-gray rounded-lg overflow-hidden image-loading">
+                  <div className="w-full h-full flex items-center justify-center text-white/30">
+                    Photo {i}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-white/70">
+              My photography focuses on urban environments, abstract compositions, and the 
+              intersection of natural and artificial light.
+            </p>
+          </div>
+        );
+      case 'drawing':
+        return (
+          <div className="neumorph p-6 rounded-2xl animate-fade-in">
+            <h3 className="text-2xl font-heading mb-4">Drawing</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="aspect-square bg-heieh-gray rounded-lg overflow-hidden image-loading">
+                  <div className="w-full h-full flex items-center justify-center text-white/30">
+                    Drawing {i}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-white/70">
+              From digital sketches to traditional pencil work, my drawings explore form, 
+              perspective, and conceptual ideas.
+            </p>
+          </div>
+        );
+      case 'painting':
+        return (
+          <div className="neumorph p-6 rounded-2xl animate-fade-in">
+            <h3 className="text-2xl font-heading mb-4">Painting</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[1, 2].map((i) => (
+                <div key={i} className="aspect-video bg-heieh-gray rounded-lg overflow-hidden image-loading">
+                  <div className="w-full h-full flex items-center justify-center text-white/30">
+                    Painting {i}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-white/70">
+              My paintings blend traditional techniques with contemporary themes, exploring color, 
+              texture, and emotional expression.
+            </p>
+          </div>
+        );
+      case 'production':
+        return (
+          <div className="neumorph p-6 rounded-2xl animate-fade-in">
+            <h3 className="text-2xl font-heading mb-4">Production</h3>
+            <div className="aspect-video bg-heieh-gray rounded-lg overflow-hidden">
+              <div className="w-full h-full flex items-center justify-center text-white/50">
+                Production Process Video
+              </div>
+            </div>
+            <p className="mt-4 text-white/70">
+              Behind the scenes of my music and visual production process, including studio setups, 
+              software techniques, and collaborative projects.
+            </p>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <section 
+      id="artist" 
+      className="section-padding bg-heieh-dark relative py-24"
+      ref={sectionRef as React.RefObject<HTMLDivElement>}
+    >
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-gradient-radial opacity-20 pointer-events-none" />
+      
+      <div className="container mx-auto">
+        <div className="mb-12 text-center">
+          <span className="px-3 py-1 rounded-full bg-heieh-gray text-xs uppercase tracking-wider text-white/70 inline-block mb-3">
+            Artist
+          </span>
+          <h2 className="text-3xl md:text-4xl font-heading mb-8">Creative Works</h2>
+          
+          {/* Category Selector */}
+          <div className="flex flex-wrap justify-center gap-3">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => handleCategoryChange(category.id)}
+                className={`
+                  neumorph py-2 px-4 rounded-full flex items-center gap-2 transition-all duration-300
+                  ${activeCategory === category.id ? 'neon-border text-heieh-neon-green' : 'text-white/70 hover:text-white'}
+                `}
+              >
+                {category.icon}
+                <span>{category.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+        
+        {/* Content Area */}
+        <div className="mt-12">
+          {renderCategoryContent()}
+        </div>
+        
+        {/* Interactive Gallery Teaser */}
+        <div className={`mt-16 neumorph p-6 rounded-xl text-center ${sectionVisible ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '300ms' }}>
+          <h3 className="text-xl font-heading mb-3">Interactive Gallery</h3>
+          <p className="text-white/70 mb-4">
+            Submit your own work inspired by these pieces or participate in community challenges.
+          </p>
+          <button className="py-2 px-6 bg-heieh-neon-green/20 hover:bg-heieh-neon-green/30 text-heieh-neon-green rounded-full transition-all duration-300">
+            Coming Soon
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ArtistSection;
