@@ -3,9 +3,11 @@ import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Send, User, Mail, MessageSquare } from 'lucide-react';
 import { useRevealAnimation } from '../utils/animations';
+import { useLanguage } from '../hooks/useLanguage';
 
 const ContactSection = () => {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -28,8 +30,8 @@ const ContactSection = () => {
     // Simulate form submission
     setTimeout(() => {
       toast({
-        title: "Message sent!",
-        description: "Thank you for your message. I'll get back to you soon.",
+        title: t('messageSent'),
+        description: t('thankYouMessage'),
       });
       setFormData({ name: '', email: '', message: '' });
       setIsSubmitting(false);
@@ -45,11 +47,11 @@ const ContactSection = () => {
       <div className="container mx-auto">
         <div className="mb-12 text-center">
           <span className="px-3 py-1 rounded-full bg-heieh-gray text-xs uppercase tracking-wider text-white/70 inline-block mb-3">
-            Contact
+            {t('contact')}
           </span>
-          <h2 className="text-3xl md:text-4xl font-heading mb-2">Get In Touch</h2>
+          <h2 className="text-3xl md:text-4xl font-heading mb-2">{t('getInTouch')}</h2>
           <p className="text-white/70 max-w-xl mx-auto">
-            Have a question or want to work together? I'd love to hear from you.
+            {t('contactDescription')}
           </p>
         </div>
         
@@ -63,7 +65,7 @@ const ContactSection = () => {
             <div className="mb-6">
               <label htmlFor="name" className="flex items-center gap-2 text-white/80 mb-2">
                 <User size={16} />
-                <span>Your Name</span>
+                <span>{t('yourName')}</span>
               </label>
               <input
                 type="text"
@@ -72,15 +74,15 @@ const ContactSection = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full bg-heieh-gray border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:neon-border"
-                placeholder="John Doe"
+                className="w-full bg-heieh-gray border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:neon-border neumorph"
+                placeholder={t('namePlaceholder')}
               />
             </div>
             
             <div className="mb-6">
               <label htmlFor="email" className="flex items-center gap-2 text-white/80 mb-2">
                 <Mail size={16} />
-                <span>Email Address</span>
+                <span>{t('emailAddress')}</span>
               </label>
               <input
                 type="email"
@@ -89,15 +91,15 @@ const ContactSection = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full bg-heieh-gray border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:neon-border"
-                placeholder="your@email.com"
+                className="w-full bg-heieh-gray border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:neon-border neumorph"
+                placeholder={t('emailPlaceholder')}
               />
             </div>
             
             <div className="mb-6">
               <label htmlFor="message" className="flex items-center gap-2 text-white/80 mb-2">
                 <MessageSquare size={16} />
-                <span>Your Message</span>
+                <span>{t('yourMessage')}</span>
               </label>
               <textarea
                 id="message"
@@ -106,21 +108,21 @@ const ContactSection = () => {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full bg-heieh-gray border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:neon-border resize-none"
-                placeholder="Hi, I'd like to discuss..."
+                className="w-full bg-heieh-gray border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:neon-border resize-none neumorph"
+                placeholder={t('messagePlaceholder')}
               />
             </div>
             
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 bg-heieh-neon-green/20 hover:bg-heieh-neon-green/30 text-heieh-neon-green rounded-lg flex justify-center items-center gap-2 transition-all duration-300 neumorph-hover"
+              className="w-full py-3 bg-heieh-neon-green/20 hover:bg-heieh-neon-green/30 text-heieh-neon-green rounded-lg flex justify-center items-center gap-2 transition-all duration-300 neumorph neumorph-hover"
             >
               {isSubmitting ? (
-                <>Processing<span className="animate-pulse">...</span></>
+                <>{t('processing')}<span className="animate-pulse">...</span></>
               ) : (
                 <>
-                  <span>Send Message</span>
+                  <span>{t('sendMessage')}</span>
                   <Send size={16} />
                 </>
               )}
@@ -131,7 +133,7 @@ const ContactSection = () => {
           <div className={`text-center mt-8 text-white/70 ${
             sectionVisible ? 'animate-fade-in' : 'opacity-0'
           }`} style={{ animationDelay: '300ms' }}>
-            I look forward to your messages and project inquiries!
+            {t('lookForward')}
           </div>
         </div>
       </div>

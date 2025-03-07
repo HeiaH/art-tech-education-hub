@@ -19,6 +19,43 @@ export const translations = {
     instagramPhotography: 'Photography',
     instagramEducation: 'Education',
     
+    // Hero Section
+    art: 'Art',
+    technology: 'Technology',
+    education: 'Education',
+    explore: 'Explore',
+    
+    // Artist Section
+    creativeWorks: 'Creative Works',
+    music: 'Music',
+    photography: 'Photography',
+    drawing: 'Drawing',
+    painting: 'Painting',
+    production: 'Production',
+    interactiveGallery: 'Interactive Gallery',
+    galleryDescription: 'Submit your own work inspired by these pieces or participate in community challenges.',
+    comingSoon: 'Coming Soon',
+    musicDescription: 'Explore my musical creations, from electronic productions to experimental sound design. My work spans multiple genres and often incorporates digital and analog elements.',
+    photographyDescription: 'My photography focuses on urban environments, abstract compositions, and the intersection of natural and artificial light.',
+    drawingDescription: 'From digital sketches to traditional pencil work, my drawings explore form, perspective, and conceptual ideas.',
+    paintingDescription: 'My paintings blend traditional techniques with contemporary themes, exploring color, texture, and emotional expression.',
+    productionDescription: 'Behind the scenes of my music and visual production process, including studio setups, software techniques, and collaborative projects.',
+    
+    // Contact Section
+    getInTouch: 'Get In Touch',
+    contactDescription: 'Have a question or want to work together? I\'d love to hear from you.',
+    yourName: 'Your Name',
+    emailAddress: 'Email Address',
+    yourMessage: 'Your Message',
+    namePlaceholder: 'John Doe',
+    emailPlaceholder: 'your@email.com',
+    messagePlaceholder: 'Hi, I\'d like to discuss...',
+    sendMessage: 'Send Message',
+    processing: 'Processing',
+    lookForward: 'I look forward to your messages and project inquiries!',
+    messageSent: 'Message sent!',
+    thankYouMessage: 'Thank you for your message. I\'ll get back to you soon.',
+    
     // Coach Section
     musicEducation: 'Music Education',
     coachSubtitle: 'Empowering students to discover their musical potential through personalized coaching.',
@@ -55,6 +92,43 @@ export const translations = {
     instagramMusic: 'Musik',
     instagramPhotography: 'Fotografie',
     instagramEducation: 'Bildung',
+    
+    // Hero Section
+    art: 'Kunst',
+    technology: 'Technologie',
+    education: 'Bildung',
+    explore: 'Entdecken',
+    
+    // Artist Section
+    creativeWorks: 'Kreative Arbeiten',
+    music: 'Musik',
+    photography: 'Fotografie',
+    drawing: 'Zeichnung',
+    painting: 'Malerei',
+    production: 'Produktion',
+    interactiveGallery: 'Interaktive Galerie',
+    galleryDescription: 'Reiche deine eigenen, von diesen Werken inspirierten Arbeiten ein oder nimm an Community-Herausforderungen teil.',
+    comingSoon: 'Demnächst verfügbar',
+    musicDescription: 'Entdecke meine musikalischen Kreationen, von elektronischen Produktionen bis hin zu experimentellem Sound-Design. Meine Arbeit umfasst mehrere Genres und verbindet oft digitale und analoge Elemente.',
+    photographyDescription: 'Meine Fotografie konzentriert sich auf urbane Umgebungen, abstrakte Kompositionen und die Schnittstelle zwischen natürlichem und künstlichem Licht.',
+    drawingDescription: 'Von digitalen Skizzen bis hin zu traditionellen Bleistiftarbeiten erforschen meine Zeichnungen Form, Perspektive und konzeptionelle Ideen.',
+    paintingDescription: 'Meine Gemälde verbinden traditionelle Techniken mit zeitgenössischen Themen und erforschen Farbe, Textur und emotionalen Ausdruck.',
+    productionDescription: 'Hinter den Kulissen meines Musik- und visuellen Produktionsprozesses, einschließlich Studio-Setups, Software-Techniken und kollaborativer Projekte.',
+    
+    // Contact Section
+    getInTouch: 'Kontakt aufnehmen',
+    contactDescription: 'Hast du eine Frage oder möchtest du zusammenarbeiten? Ich würde mich freuen, von dir zu hören.',
+    yourName: 'Dein Name',
+    emailAddress: 'E-Mail-Adresse',
+    yourMessage: 'Deine Nachricht',
+    namePlaceholder: 'Max Mustermann',
+    emailPlaceholder: 'deine@email.com',
+    messagePlaceholder: 'Hallo, ich möchte gerne besprechen...',
+    sendMessage: 'Nachricht senden',
+    processing: 'Verarbeitung',
+    lookForward: 'Ich freue mich auf deine Nachrichten und Projektanfragen!',
+    messageSent: 'Nachricht gesendet!',
+    thankYouMessage: 'Vielen Dank für deine Nachricht. Ich melde mich bald bei dir.',
     
     // Coach Section
     musicEducation: 'Musikunterricht',

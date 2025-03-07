@@ -1,3 +1,4 @@
+
 import { Music, Instagram, Github, Linkedin, ArrowUp } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 import { Icon } from '@iconify/react';
@@ -33,7 +34,7 @@ const Footer = () => {
     },
   ];
 
-  // Instagram accounts grouped
+  // Instagram accounts
   const instagramAccounts = [
     { 
       name: 'Instagram', 
@@ -99,7 +100,7 @@ const Footer = () => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`text-white/70 transition-all duration-300 ${link.hoverClass}`}
+                  className={`text-white/70 transition-all duration-300 ${link.hoverClass} neumorph p-2 rounded-full`}
                   aria-label={link.name}
                   title={link.name}
                 >
@@ -119,7 +120,7 @@ const Footer = () => {
                   href={account.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`text-white/70 transition-all duration-300 ${account.hoverClass} flex items-center gap-2`}
+                  className={`text-white/70 transition-all duration-300 ${account.hoverClass} flex items-center gap-2 neumorph px-3 py-2 rounded-lg`}
                   aria-label={`${account.name} - ${account.description}`}
                   title={`${account.name} - ${account.description}`}
                 >
@@ -140,7 +141,7 @@ const Footer = () => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`text-white/70 transition-all duration-300 ${link.hoverClass}`}
+                  className={`text-white/70 transition-all duration-300 ${link.hoverClass} neumorph px-3 py-2 rounded-lg`}
                   aria-label={link.name}
                   title={link.name}
                 >

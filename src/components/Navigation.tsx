@@ -46,7 +46,7 @@ const Navigation = () => {
           className="text-white text-2xl font-heading tracking-wide"
         >
           <div className="logo-container">
-            HeiǝH
+            <span className="logo">HeiǝH</span>
           </div>
         </a>
 
@@ -56,14 +56,14 @@ const Navigation = () => {
             <button
               key={item}
               onClick={() => scrollToSection(item)}
-              className="capitalize text-white/80 hover:text-white hover:neon-text-green transition-all duration-300 text-sm font-medium"
+              className="capitalize text-white/80 hover:text-white hover:neon-text-green transition-all duration-300 text-sm font-medium neumorph-hover px-4 py-2 rounded-lg"
             >
               {t(item)}
             </button>
           ))}
           
           {/* Language Switcher */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 neumorph px-3 py-2 rounded-lg">
             <Globe size={16} className="text-white/70" />
             <select 
               value={language} 
@@ -79,7 +79,7 @@ const Navigation = () => {
         {/* Mobile menu button */}
         <button 
           onClick={toggleMenu} 
-          className="md:hidden text-white neumorph-hover p-2 rounded-lg"
+          className="md:hidden text-white neumorph neumorph-hover p-2 rounded-lg"
         >
           {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -96,7 +96,7 @@ const Navigation = () => {
             <button
               key={item}
               onClick={() => scrollToSection(item)}
-              className="capitalize text-white/80 hover:text-white hover:neon-text-green transition-all duration-300 text-base font-medium"
+              className="capitalize text-white/80 hover:text-white hover:neon-text-green transition-all duration-300 text-base font-medium neumorph px-4 py-2 rounded-lg"
             >
               {t(item)}
             </button>
