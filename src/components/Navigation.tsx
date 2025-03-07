@@ -1,10 +1,12 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
+import { useLanguage } from '../hooks/useLanguage';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -43,7 +45,7 @@ const Navigation = () => {
           }}
           className="text-white text-2xl font-heading tracking-wide"
         >
-          <span className="logo">
+          <span className="logo-container inline-block">
             He<span className="logo-i">i</span>ǝH
           </span>
         </a>
@@ -56,9 +58,22 @@ const Navigation = () => {
               onClick={() => scrollToSection(item)}
               className="capitalize text-white/80 hover:text-white hover:neon-text-green transition-all duration-300 text-sm font-medium"
             >
-              {item}
+              {t(item)}
             </button>
           ))}
+          
+          {/* Language Switcher */}
+          <div className="flex items-center space-x-2">
+            <Globe size={16} className="text-white/70" />
+            <select 
+              value={language} 
+              onChange={(e) => setLanguage(e.target.value as 'en' | 'de')}
+              className="bg-transparent text-white/80 hover:text-white text-sm outline-none cursor-pointer"
+            >
+              <option value="en">EN</option>
+              <option value="de">DE</option>
+            </select>
+          </div>
         </div>
 
         {/* Mobile menu button */}
@@ -83,9 +98,25 @@ const Navigation = () => {
               onClick={() => scrollToSection(item)}
               className="capitalize text-white/80 hover:text-white hover:neon-text-green transition-all duration-300 text-base font-medium"
             >
-              {item}
+              {t(item)}
             </button>
           ))}
+          
+          {/* Mobile Language Switcher */}
+          <div className="flex items-center space-x-3 mt-4">
+            <button 
+              onClick={() => setLanguage('en')}
+              className={`px-3 py-1 rounded ${language === 'en' ? 'neumorph' : 'text-white/70'}`}
+            >
+              EN
+            </button>
+            <button 
+              onClick={() => setLanguage('de')}
+              className={`px-3 py-1 rounded ${language === 'de' ? 'neumorph' : 'text-white/70'}`}
+            >
+              DE
+            </button>
+          </div>
         </div>
       </div>
     </nav>

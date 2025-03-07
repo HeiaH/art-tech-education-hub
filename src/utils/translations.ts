@@ -1,0 +1,68 @@
+
+// Translation data for English and German
+export const translations = {
+  en: {
+    // Navigation & General
+    about: 'About',
+    artist: 'Artist',
+    developer: 'Developer',
+    coach: 'Coach',
+    contact: 'Contact',
+    allRightsReserved: 'All rights reserved.',
+    privacy: 'Privacy Policy',
+    imprint: 'Imprint',
+    terms: 'Terms',
+    
+    // Coach Section
+    coach: 'Coach',
+    musicEducation: 'Music Education',
+    coachSubtitle: 'Empowering students to discover their musical potential through personalized coaching.',
+    coachingPhilosophy: 'My Coaching Philosophy',
+    coachingPhilosophyP1: 'I believe in the power of personalized education that adapts to each student\'s unique learning style and goals. My approach combines traditional music foundations with modern technology, making learning both effective and engaging.',
+    coachingPhilosophyP2: 'Whether you\'re a complete beginner or looking to refine advanced skills, I create a supportive environment where you can explore, experiment, and excel at your own pace.',
+    instrumentalTraining: 'Instrumental Training',
+    instrumentalTrainingDesc: 'One-on-one sessions for mastering musical instruments with personalized learning paths.',
+    musicProduction: 'Music Production',
+    musicProductionDesc: 'Learn professional audio production, mixing, and sound design techniques.',
+    theoryComposition: 'Theory & Composition',
+    theoryCompositionDesc: 'Develop a strong foundation in music theory and composition principles.',
+    groupWorkshops: 'Group Workshops',
+    groupWorkshopsDesc: 'Collaborative learning experiences for groups interested in music and technology.',
+    studentSuccessStories: 'Student Success Stories',
+    testimonial: 'HeiǝH\'s unique approach combining music theory with technology has completely transformed my understanding of production. His teaching style makes complex concepts accessible and engaging.',
+    formerStudent: 'Former Student',
+    findMeOn: 'Find Me On',
+  },
+  de: {
+    // Navigation & General
+    about: 'Über mich',
+    artist: 'Künstler',
+    developer: 'Entwickler',
+    coach: 'Coach',
+    contact: 'Kontakt',
+    allRightsReserved: 'Alle Rechte vorbehalten.',
+    privacy: 'Datenschutz',
+    imprint: 'Impressum',
+    terms: 'AGB',
+    
+    // Coach Section
+    coach: 'Coach',
+    musicEducation: 'Musikunterricht',
+    coachSubtitle: 'Ich helfe Schülern, ihr musikalisches Potenzial durch personalisierten Unterricht zu entdecken.',
+    coachingPhilosophy: 'Meine Unterrichtsphilosophie',
+    coachingPhilosophyP1: 'Ich glaube an die Kraft personalisierten Unterrichts, der sich an den individuellen Lernstil und die Ziele jedes Schülers anpasst. Mein Ansatz verbindet traditionelle musikalische Grundlagen mit moderner Technologie und macht das Lernen effektiv und ansprechend.',
+    coachingPhilosophyP2: 'Egal ob Anfänger oder Fortgeschrittener, ich schaffe eine unterstützende Umgebung, in der du in deinem eigenen Tempo erkunden, experimentieren und dich weiterentwickeln kannst.',
+    instrumentalTraining: 'Instrumentalunterricht',
+    instrumentalTrainingDesc: 'Einzelunterricht zum Erlernen von Musikinstrumenten mit personalisierten Lernpfaden.',
+    musicProduction: 'Musikproduktion',
+    musicProductionDesc: 'Lerne professionelle Audioproduktion, Mixing und Sound-Design-Techniken.',
+    theoryComposition: 'Theorie & Komposition',
+    theoryCompositionDesc: 'Entwickle ein solides Fundament in Musiktheorie und Kompositionsprinzipien.',
+    groupWorkshops: 'Gruppenworkshops',
+    groupWorkshopsDesc: 'Kollaborative Lernerfahrungen für Gruppen mit Interesse an Musik und Technologie.',
+    studentSuccessStories: 'Erfolgsgeschichten von Schülern',
+    testimonial: 'HeiǝHs einzigartiger Ansatz, der Musiktheorie mit Technologie verbindet, hat mein Verständnis von Produktion komplett verändert. Sein Unterrichtsstil macht komplexe Konzepte zugänglich und ansprechend.',
+    formerStudent: 'Ehemaliger Schüler',
+    findMeOn: 'Finde mich auf',
+  }
+};
