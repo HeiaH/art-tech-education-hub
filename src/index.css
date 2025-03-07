@@ -73,16 +73,16 @@
   perspective: 600px;
 }
 
-.logo-container:hover .logo {
-  transform: rotateY(180deg);
-}
-
 .logo {
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
   transform-origin: center;
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease-in-out;
+}
+
+.logo-container:hover .logo {
+  transform: rotate(180deg);
 }
 
 /* Neumorphic styling */
