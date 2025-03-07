@@ -45,9 +45,9 @@ const Navigation = () => {
           }}
           className="text-white text-2xl font-heading tracking-wide"
         >
-          <span className="logo-container inline-block">
-            He<span className="logo-i">i</span>ǝH
-          </span>
+          <div className="logo-container">
+            HeiǝH
+          </div>
         </a>
 
         {/* Desktop Menu */}

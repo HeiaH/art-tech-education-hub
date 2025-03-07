@@ -13,6 +13,11 @@ export const translations = {
     imprint: 'Imprint',
     terms: 'Terms',
     language: 'Language',
+    socialMedia: 'Social Media',
+    teachingPlatforms: 'Teaching Platforms',
+    instagramMusic: 'Music',
+    instagramPhotography: 'Photography',
+    instagramEducation: 'Education',
     
     // Coach Section
     musicEducation: 'Music Education',
@@ -45,6 +50,11 @@ export const translations = {
     imprint: 'Impressum',
     terms: 'AGB',
     language: 'Sprache',
+    socialMedia: 'Soziale Medien',
+    teachingPlatforms: 'Lehrplattformen',
+    instagramMusic: 'Musik',
+    instagramPhotography: 'Fotografie',
+    instagramEducation: 'Bildung',
     
     // Coach Section
     musicEducation: 'Musikunterricht',

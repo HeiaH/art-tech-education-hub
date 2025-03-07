@@ -1,8 +1,7 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -66,8 +65,6 @@
   }
 }
 
-/* ... keep existing code */
-
 /* Custom classes for the logo */
 .logo-container {
   position: relative;
@@ -83,11 +80,10 @@
   transform: rotateY(180deg);
 }
 
-.logo-i {
-  display: inline-block;
-  position: relative;
-  /* This centers the rotation point on the i character */
-  transform-origin: center;
+.logo {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
 /* Neumorphic styling */
