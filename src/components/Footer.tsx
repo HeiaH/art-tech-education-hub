@@ -1,12 +1,12 @@
 
-import { SoundCloud, Instagram, Github, Linkedin, ArrowUp } from 'lucide-react';
+import { Music, Instagram, Github, Linkedin, ArrowUp } from 'lucide-react';
 
 const Footer = () => {
   // Social media links
   const socialLinks = [
     { 
       name: 'SoundCloud', 
-      icon: <SoundCloud size={20} />, 
+      icon: <Music size={20} />, 
       url: 'https://soundcloud.com', 
       hoverClass: 'hover:text-heieh-neon-green' 
     },
