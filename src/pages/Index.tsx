@@ -4,8 +4,8 @@ import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
 import AboutMe from '../components/AboutMe';
 import ArtistSection from '../components/ArtistSection';
-import DeveloperSection from '../components/DeveloperSection';
 import CoachSection from '../components/CoachSection';
+import DeveloperSection from '../components/DeveloperSection';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 
@@ -43,8 +43,8 @@ const Index = () => {
       <Hero />
       <AboutMe />
       <ArtistSection />
-      <DeveloperSection />
       <CoachSection />
+      <DeveloperSection />
       <ContactSection />
       <Footer />
     </div>

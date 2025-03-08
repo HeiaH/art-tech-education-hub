@@ -50,9 +50,20 @@ const Navigation = () => {
           </div>
         </a>
 
+        {/* Language Switcher - Always visible on small screens */}
+        <div className="md:hidden flex items-center mr-4">
+          <button 
+            onClick={() => setLanguage(language === 'en' ? 'de' : 'en')}
+            className="neumorph px-2 py-1 rounded-lg flex items-center gap-1"
+          >
+            <Globe size={16} className="text-white/70" />
+            <span>{language === 'en' ? 'DE' : 'EN'}</span>
+          </button>
+        </div>
+
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
-          {['about', 'artist', 'developer', 'coach', 'contact'].map((item) => (
+          {['about', 'artist', 'coach', 'developer', 'contact'].map((item) => (
             <button
               key={item}
               onClick={() => scrollToSection(item)}
@@ -92,7 +103,7 @@ const Navigation = () => {
         } transition-all duration-300 ease-in-out`}
       >
         <div className="flex flex-col items-center space-y-6 py-4">
-          {['about', 'artist', 'developer', 'coach', 'contact'].map((item) => (
+          {['about', 'artist', 'coach', 'developer', 'contact'].map((item) => (
             <button
               key={item}
               onClick={() => scrollToSection(item)}
@@ -101,22 +112,6 @@ const Navigation = () => {
               {t(item)}
             </button>
           ))}
-          
-          {/* Mobile Language Switcher */}
-          <div className="flex items-center space-x-3 mt-4">
-            <button 
-              onClick={() => setLanguage('en')}
-              className={`px-3 py-1 rounded ${language === 'en' ? 'neumorph' : 'text-white/70'}`}
-            >
-              EN
-            </button>
-            <button 
-              onClick={() => setLanguage('de')}
-              className={`px-3 py-1 rounded ${language === 'de' ? 'neumorph' : 'text-white/70'}`}
-            >
-              DE
-            </button>
-          </div>
         </div>
       </div>
     </nav>

@@ -308,17 +308,6 @@ const ArtistSection = () => {
               <div className="mt-12">
                 {renderCategoryContent()}
               </div>
-              
-              {/* Interactive Gallery Teaser */}
-              <div className={`mt-16 neumorph p-6 rounded-xl text-center ${sectionVisible ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '300ms' }}>
-                <h3 className="text-xl font-heading mb-3">{t('interactiveGallery')}</h3>
-                <p className="text-white/70 mb-4">
-                  {t('galleryDescription')}
-                </p>
-                <button className="neumorph neumorph-hover py-2 px-6 bg-heieh-neon-green/20 hover:bg-heieh-neon-green/30 text-heieh-neon-green rounded-full transition-all duration-300">
-                  {t('comingSoon')}
-                </button>
-              </div>
             </>
           )}
         </div>

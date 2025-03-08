@@ -1,14 +1,16 @@
 
-import { ExternalLink, Music, Headphones, BookOpen, Users, ChevronUp, ChevronDown } from 'lucide-react';
+import { ExternalLink, Music, Headphones, BookOpen, Users, ChevronUp, ChevronDown, Calendar } from 'lucide-react';
 import { useRevealAnimation } from '../utils/animations';
 import { useLanguage } from '../hooks/useLanguage';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const CoachSection = () => {
   const [isSectionCollapsed, setIsSectionCollapsed] = useState(false);
   const { ref: sectionRef, isVisible: sectionVisible } = useRevealAnimation();
   const { ref: cardsRef, isVisible: cardsVisible } = useRevealAnimation(0.2);
   const { t, language } = useLanguage();
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+  const reviewsContainerRef = useRef<HTMLDivElement>(null);
 
   // Toggle section collapse
   const toggleSectionCollapse = () => {
@@ -67,10 +69,46 @@ const CoachSection = () => {
     }
   ] : [
     {
-      name: "Former Student",
-      text: t('testimonial')
+      name: "Phil",
+      text: "Lucien is the perfect teacher if you really want to learn music. He brings a lot of experience and explains everything in a way that you can understand immediately – without pressure, but with a lot of patience. Whether it's guitar, piano, bass or vocals, you feel well taken care of with him. He takes the time to respond to each individual, and you notice that right away. He also knows about music production, so it's ideal if you not only want to play, but also want to record your own songs. You can tell that he himself is really passionate about music – it's simply contagious. With Lucien, you not only learn something, but also have a lot of fun."
+    },
+    {
+      name: "Allan",
+      text: "Qualified, experienced, motivating and entertaining"
+    },
+    {
+      name: "Simon",
+      text: "I've known Lucien for 12 years and have been making music with him since then. He is an absolute all-rounder when it comes to instruments and music understanding. I've often been able to learn the basics of various instruments from him, and I can also recommend him as a vocal coach. He manages to give you the help you need to develop musically with just a few words. 10/10"
+    },
+    {
+      name: "Michelle",
+      text: "I have never met anyone who is so musically talented in so many ways. I don't think there's any instrument that Lucien can't play, at least that's how I perceive it. Music simply flows through his veins and he also has a love for explaining. An absolute recommendation for anyone who wants to learn guitar!"
+    },
+    {
+      name: "Kevin",
+      text: "Lucien is very reliable and honest. What I always appreciate about him is his commitment, his passion - a good teacher must burn himself and be able to inspire others. He was also always able to assess very precisely what I need or what I was missing, which is important to find the right lever, where to start. Another plus point, this huge palette of knowledge. He is still my personal Wikipedia. I am very grateful to Lucien for everything he has done for me and I can always come to him when I need help and advice."
+    },
+    {
+      name: "Leo",
+      text: "Lucien is an outstanding piano teacher and full-blooded musician who not only masters the piano but also plays a variety of other instruments. His passion for music and his comprehensive experience make him a unique teacher. With his ability to communicate complex topics in an understandable way, he enables his students to reach their full potential. Lucien brings not only technical skills but also musical passion to his lessons, making playing the piano an inspiring experience. Highly recommended!"
     }
   ];
+
+  // Handle navigation through reviews
+  const nextReview = () => {
+    setCurrentReviewIndex((prev) => (prev + 1) % studentReviews.length);
+  };
+
+  const prevReview = () => {
+    setCurrentReviewIndex((prev) => (prev - 1 + studentReviews.length) % studentReviews.length);
+  };
+
+  // Update carousel position when index changes
+  useEffect(() => {
+    if (reviewsContainerRef.current) {
+      reviewsContainerRef.current.style.transform = `translateX(-${currentReviewIndex * 100}%)`;
+    }
+  }, [currentReviewIndex]);
 
   return (
     <section 
@@ -119,6 +157,17 @@ const CoachSection = () => {
               </p>
             </div>
             
+            {/* "Book a free coaching session" button */}
+            <div className="text-center mt-6">
+              <a 
+                href="mailto:contact@heieh.com?subject=Free%20Coaching%20Session%20Request" 
+                className="neumorph py-3 px-6 bg-heieh-neon-green/20 hover:bg-heieh-neon-green/30 text-heieh-neon-green font-semibold rounded-full inline-flex items-center gap-2 transition-all duration-300 transform hover:scale-105"
+              >
+                <Calendar size={18} />
+                <span>{t('bookFreeSession')}</span>
+              </a>
+            </div>
+            
             {/* Service cards */}
             <div 
               className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12"
@@ -139,21 +188,81 @@ const CoachSection = () => {
               ))}
             </div>
             
-            {/* Student reviews */}
+            {/* Student reviews carousel */}
             <div className={`mt-16 neumorph p-8 rounded-2xl max-w-3xl mx-auto ${
               sectionVisible ? 'animate-fade-in' : 'opacity-0'
             }`} style={{ animationDelay: '400ms' }}>
               <h3 className="text-xl font-heading mb-6 text-center">{t('studentSuccessStories')}</h3>
               
-              <div className="space-y-6">
-                {studentReviews.map((review, index) => (
-                  <div key={index} className="mb-6 last:mb-0">
-                    <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-2">
-                      "{review.text}"
-                    </blockquote>
-                    <div className="text-right text-white/70">— {review.name}</div>
+              <div className="relative overflow-hidden">
+                {/* Reviews container */}
+                <div 
+                  ref={reviewsContainerRef}
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{ width: `${studentReviews.length * 100}%` }}
+                >
+                  {studentReviews.map((review, index) => (
+                    <div key={index} className="w-full px-4" style={{ flex: `0 0 ${100 / studentReviews.length}%` }}>
+                      <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-2">
+                        "{review.text}"
+                      </blockquote>
+                      <div className="text-right text-white/70">— {review.name}</div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Navigation controls */}
+                <div className="flex justify-between mt-6">
+                  <button 
+                    onClick={prevReview}
+                    className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors"
+                    aria-label="Previous review"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                  </button>
+                  
+                  {/* Pagination dots */}
+                  <div className="flex gap-2 items-center">
+                    {studentReviews.map((_, index) => (
+                      <button 
+                        key={index}
+                        onClick={() => setCurrentReviewIndex(index)}
+                        className={`h-2 rounded-full transition-all ${
+                          currentReviewIndex === index ? 'w-4 bg-heieh-neon-blue' : 'w-2 bg-white/30'
+                        }`}
+                        aria-label={`Go to review ${index + 1}`}
+                      />
+                    ))}
                   </div>
-                ))}
+                  
+                  <button 
+                    onClick={nextReview}
+                    className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors"
+                    aria-label="Next review"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            {/* One-on-one online coaching section */}
+            <div className={`mt-12 neumorph p-8 rounded-2xl max-w-3xl mx-auto ${
+              sectionVisible ? 'animate-fade-in' : 'opacity-0'
+            }`} style={{ animationDelay: '500ms' }}>
+              <h3 className="text-xl font-heading mb-4 text-center">{t('onlineCoaching')}</h3>
+              <p className="text-white/80 mb-6 text-center">
+                {t('onlineCoachingDesc')}
+              </p>
+              
+              <div className="flex justify-center">
+                <a 
+                  href="mailto:contact@heieh.com?subject=Free%20Coaching%20Session%20Request" 
+                  className="neumorph py-3 px-6 bg-heieh-neon-green text-black font-semibold rounded-full inline-flex items-center gap-2 transition-all duration-300 transform hover:scale-105 hover:bg-heieh-neon-green/90"
+                >
+                  <Calendar size={18} />
+                  <span>{t('bookFreeSession')}</span>
+                </a>
               </div>
             </div>
             
