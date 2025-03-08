@@ -30,10 +30,15 @@ const ArtistSection = () => {
         return (
           <div className="neumorph p-6 rounded-2xl animate-fade-in">
             <h3 className="text-2xl font-heading mb-4">{t('music')}</h3>
-            <div className="aspect-video bg-heieh-gray rounded-lg overflow-hidden">
-              <div className="w-full h-full flex items-center justify-center text-white/50">
-                SoundCloud Player Embed
-              </div>
+            <div className="rounded-lg overflow-hidden" style={{ maxHeight: '166px' }}>
+              <iframe 
+                width="100%" 
+                height="166" 
+                scrolling="no" 
+                frameBorder="no" 
+                allow="autoplay" 
+                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1788249257&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+              ></iframe>
             </div>
             <p className="mt-4 text-white/70">
               {t('musicDescription')}
