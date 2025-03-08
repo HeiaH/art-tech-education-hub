@@ -25,6 +25,12 @@ export const translations = {
     education: 'Education',
     explore: 'Explore',
     
+    // About Me Section
+    whoIsHeieh: 'Who is HeiǝH?',
+    combineArtTech: 'I combine art, technology, and education.',
+    aboutP1: 'With a passion for both creative expression and technical innovation, I work at the intersection of art and technology. My journey spans music production, photography, digital art, software development, and education.',
+    aboutP2: 'I believe in the power of technology to enhance artistic expression, and the value of artistic thinking in technological development. Through coaching, I help others discover their own creative potential using modern tools and techniques.',
+    
     // Artist Section
     creativeWorks: 'Creative Works',
     music: 'Music',
@@ -98,6 +104,12 @@ export const translations = {
     technology: 'Technologie',
     education: 'Bildung',
     explore: 'Entdecken',
+    
+    // About Me Section
+    whoIsHeieh: 'Wer ist HeiǝH?',
+    combineArtTech: 'Ich verbinde Kunst, Technologie und Bildung.',
+    aboutP1: 'Mit einer Leidenschaft für sowohl kreativen Ausdruck als auch technische Innovation arbeite ich an der Schnittstelle von Kunst und Technologie. Meine Reise umfasst Musikproduktion, Fotografie, digitale Kunst, Softwareentwicklung und Bildung.',
+    aboutP2: 'Ich glaube an die Kraft der Technologie, künstlerischen Ausdruck zu verbessern, und an den Wert künstlerischen Denkens in der technologischen Entwicklung. Durch Coaching helfe ich anderen, ihr eigenes kreatives Potenzial mit modernen Werkzeugen und Techniken zu entdecken.',
     
     // Artist Section
     creativeWorks: 'Kreative Arbeiten',
