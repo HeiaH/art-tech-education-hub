@@ -37,3 +37,32 @@
   -webkit-text-fill-color: transparent;
   animation: shine 4s linear infinite;
 }
+
+/* Enhanced button hover effect */
+a.neumorph:hover, 
+button.neumorph:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+/* Button hover effects for specific colors */
+a.neumorph:hover.bg-heieh-neon-green, 
+button.neumorph:hover.bg-heieh-neon-green,
+a.neumorph:hover.hover\:bg-heieh-neon-green:hover, 
+button.neumorph:hover.hover\:bg-heieh-neon-green:hover {
+  box-shadow: 
+    0 5px 15px rgba(29, 185, 84, 0.4),
+    0 0 0 1px rgba(29, 185, 84, 0.3);
+}
+
+a.neumorph:hover.bg-heieh-neon-blue, 
+button.neumorph:hover.bg-heieh-neon-blue,
+a.neumorph:hover.hover\:bg-heieh-neon-blue:hover, 
+button.neumorph:hover.hover\:bg-heieh-neon-blue:hover {
+  box-shadow: 
+    0 5px 15px rgba(26, 115, 232, 0.4),
+    0 0 0 1px rgba(26, 115, 232, 0.3);
+}

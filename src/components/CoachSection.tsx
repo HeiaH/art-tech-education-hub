@@ -11,6 +11,7 @@ const CoachSection = () => {
   const { t, language } = useLanguage();
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
   const reviewsContainerRef = useRef<HTMLDivElement>(null);
+  const reviewIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Toggle section collapse
   const toggleSectionCollapse = () => {
@@ -102,6 +103,27 @@ const CoachSection = () => {
   const prevReview = () => {
     setCurrentReviewIndex((prev) => (prev - 1 + studentReviews.length) % studentReviews.length);
   };
+  
+  // Auto-rotate reviews every 20 seconds
+  useEffect(() => {
+    // Clear any existing intervals when component unmounts or dependencies change
+    if (reviewIntervalRef.current) {
+      clearInterval(reviewIntervalRef.current);
+    }
+    
+    // Create new interval
+    reviewIntervalRef.current = setInterval(() => {
+      nextReview();
+    }, 20000);
+    
+    // Cleanup on unmount
+    return () => {
+      if (reviewIntervalRef.current) {
+        clearInterval(reviewIntervalRef.current);
+        reviewIntervalRef.current = null;
+      }
+    };
+  }, [currentReviewIndex, studentReviews.length]);
 
   // Update carousel position when index changes
   useEffect(() => {
@@ -161,11 +183,21 @@ const CoachSection = () => {
             <div className="text-center mt-6">
               <a 
                 href="mailto:contact@heieh.com?subject=Free%20Coaching%20Session%20Request" 
-                className="neumorph py-3 px-6 bg-heieh-neon-green/20 hover:bg-heieh-neon-green/30 text-heieh-neon-green font-semibold rounded-full inline-flex items-center gap-2 transition-all duration-300 transform hover:scale-105"
+                className="neumorph py-3 px-6 bg-heieh-neon-green/20 hover:bg-heieh-neon-green text-heieh-neon-green hover:text-black font-semibold rounded-full inline-flex items-center gap-2 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_5px_15px_rgba(29,185,84,0.4)] hover:translate-y-[-2px]"
               >
                 <Calendar size={18} />
                 <span>{t('bookFreeSession')}</span>
               </a>
+            </div>
+            
+            {/* One-on-one online coaching section - Moved here as requested */}
+            <div className={`mt-12 neumorph p-8 rounded-2xl max-w-3xl mx-auto ${
+              sectionVisible ? 'animate-fade-in' : 'opacity-0'
+            }`} style={{ animationDelay: '500ms' }}>
+              <h3 className="text-xl font-heading mb-4 text-center">{t('onlineCoaching')}</h3>
+              <p className="text-white/80 mb-6 text-center">
+                {t('onlineCoachingDesc')}
+              </p>
             </div>
             
             {/* Service cards */}
@@ -189,7 +221,7 @@ const CoachSection = () => {
             </div>
             
             {/* Student reviews carousel */}
-            <div className={`mt-16 neumorph p-8 rounded-2xl max-w-3xl mx-auto ${
+            <div className={`mt-16 p-8 max-w-3xl mx-auto ${
               sectionVisible ? 'animate-fade-in' : 'opacity-0'
             }`} style={{ animationDelay: '400ms' }}>
               <h3 className="text-xl font-heading mb-6 text-center">{t('studentSuccessStories')}</h3>
@@ -202,11 +234,17 @@ const CoachSection = () => {
                   style={{ width: `${studentReviews.length * 100}%` }}
                 >
                   {studentReviews.map((review, index) => (
-                    <div key={index} className="w-full px-4" style={{ flex: `0 0 ${100 / studentReviews.length}%` }}>
-                      <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-2">
-                        "{review.text}"
-                      </blockquote>
-                      <div className="text-right text-white/70">— {review.name}</div>
+                    <div 
+                      key={index} 
+                      className="w-full px-4" 
+                      style={{ flex: `0 0 ${100 / studentReviews.length}%` }}
+                    >
+                      <div className="neumorph p-6 rounded-xl m-2 shadow-xl h-full">
+                        <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-2">
+                          "{review.text}"
+                        </blockquote>
+                        <div className="text-right text-white/70">— {review.name}</div>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -215,7 +253,7 @@ const CoachSection = () => {
                 <div className="flex justify-between mt-6">
                   <button 
                     onClick={prevReview}
-                    className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors"
+                    className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors hover:bg-heieh-neon-blue/10 hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(26,115,232,0.3)]"
                     aria-label="Previous review"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
@@ -237,32 +275,12 @@ const CoachSection = () => {
                   
                   <button 
                     onClick={nextReview}
-                    className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors"
+                    className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors hover:bg-heieh-neon-blue/10 hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(26,115,232,0.3)]"
                     aria-label="Next review"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                   </button>
                 </div>
-              </div>
-            </div>
-            
-            {/* One-on-one online coaching section */}
-            <div className={`mt-12 neumorph p-8 rounded-2xl max-w-3xl mx-auto ${
-              sectionVisible ? 'animate-fade-in' : 'opacity-0'
-            }`} style={{ animationDelay: '500ms' }}>
-              <h3 className="text-xl font-heading mb-4 text-center">{t('onlineCoaching')}</h3>
-              <p className="text-white/80 mb-6 text-center">
-                {t('onlineCoachingDesc')}
-              </p>
-              
-              <div className="flex justify-center">
-                <a 
-                  href="mailto:contact@heieh.com?subject=Free%20Coaching%20Session%20Request" 
-                  className="neumorph py-3 px-6 bg-heieh-neon-green text-black font-semibold rounded-full inline-flex items-center gap-2 transition-all duration-300 transform hover:scale-105 hover:bg-heieh-neon-green/90"
-                >
-                  <Calendar size={18} />
-                  <span>{t('bookFreeSession')}</span>
-                </a>
               </div>
             </div>
             
@@ -276,7 +294,7 @@ const CoachSection = () => {
                   href="https://unterricht.check24.de/musik/profil/sp_OVa9j" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="neumorph py-2 px-5 rounded-full inline-flex items-center gap-2 transition-all duration-300 hover:neon-text-green"
+                  className="neumorph py-2 px-5 rounded-full inline-flex items-center gap-2 transition-all duration-300 hover:bg-heieh-neon-green hover:text-black hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(29,185,84,0.4)]"
                 >
                   <span>Check24Profis</span>
                   <ExternalLink size={16} />
@@ -285,7 +303,7 @@ const CoachSection = () => {
                   href="https://www.superprof.de/musikunterricht-gitarre-individuell-flexibel-und-mit-spass-egal-anfanger-oder-fortgeschritten-entdecke-deinen-sound.html" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="neumorph py-2 px-5 rounded-full inline-flex items-center gap-2 transition-all duration-300 hover:neon-text-green"
+                  className="neumorph py-2 px-5 rounded-full inline-flex items-center gap-2 transition-all duration-300 hover:bg-heieh-neon-green hover:text-black hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(29,185,84,0.4)]"
                 >
                   <span>SuperProf</span>
                   <ExternalLink size={16} />
