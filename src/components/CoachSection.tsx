@@ -1,4 +1,3 @@
-
 import { ExternalLink, Music, Headphones, BookOpen, Users, ChevronUp, ChevronDown, Calendar } from 'lucide-react';
 import { useRevealAnimation } from '../utils/animations';
 import { useLanguage } from '../hooks/useLanguage';
@@ -10,7 +9,7 @@ const CoachSection = () => {
   const { ref: cardsRef, isVisible: cardsVisible } = useRevealAnimation(0.2);
   const { t, language } = useLanguage();
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
-  const reviewsContainerRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
   const reviewIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Toggle section collapse
@@ -95,13 +94,34 @@ const CoachSection = () => {
     }
   ];
 
-  // Handle navigation through reviews
+  // Handle navigation through reviews with animation
   const nextReview = () => {
-    setCurrentReviewIndex((prev) => (prev + 1) % studentReviews.length);
+    const nextIndex = (currentReviewIndex + 1) % studentReviews.length;
+    animateCarousel(nextIndex);
+    setCurrentReviewIndex(nextIndex);
   };
 
   const prevReview = () => {
-    setCurrentReviewIndex((prev) => (prev - 1 + studentReviews.length) % studentReviews.length);
+    const prevIndex = (currentReviewIndex - 1 + studentReviews.length) % studentReviews.length;
+    animateCarousel(prevIndex);
+    setCurrentReviewIndex(prevIndex);
+  };
+
+  // Animate carousel to show specific review
+  const animateCarousel = (index: number) => {
+    if (carouselRef.current) {
+      const slideWidth = carouselRef.current.offsetWidth;
+      carouselRef.current.scrollTo({
+        left: index * slideWidth,
+        behavior: 'smooth'
+      });
+    }
+  };
+  
+  // Navigate to specific review via dot indicator
+  const goToReview = (index: number) => {
+    animateCarousel(index);
+    setCurrentReviewIndex(index);
   };
   
   // Auto-rotate reviews every 20 seconds
@@ -213,22 +233,36 @@ const CoachSection = () => {
               ))}
             </div>
             
-            {/* Student reviews carousel - FIXED to show one review at a time */}
-            <div className={`mt-16 p-8 max-w-3xl mx-auto ${
+            {/* Improved Student reviews carousel with side-scrolling */}
+            <div className={`mt-16 max-w-3xl mx-auto ${
               sectionVisible ? 'animate-fade-in' : 'opacity-0'
             }`} style={{ animationDelay: '400ms' }}>
               <h3 className="text-xl font-heading mb-6 text-center">{t('studentSuccessStories')}</h3>
               
-              <div className="relative carousel-container">
-                {/* Single review display */}
-                <div className="neumorph p-6 rounded-xl h-full">
-                  <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-4">
-                    "{studentReviews[currentReviewIndex].text}"
-                  </blockquote>
-                  <div className="text-right text-white/70">— {studentReviews[currentReviewIndex].name}</div>
+              {/* Carousel container with fixed height to maintain consistent layout */}
+              <div className="relative carousel-container neumorph rounded-xl p-8 overflow-hidden">
+                {/* Horizontal scrollable container */}
+                <div 
+                  ref={carouselRef}
+                  className="flex overflow-x-hidden snap-x snap-mandatory w-full"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
+                  {studentReviews.map((review, index) => (
+                    <div 
+                      key={index}
+                      className="min-w-full flex-shrink-0 snap-center"
+                    >
+                      <div className="h-full">
+                        <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-4">
+                          "{review.text}"
+                        </blockquote>
+                        <div className="text-right text-white/70">— {review.name}</div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
                 
-                {/* Navigation controls */}
+                {/* Fixed position navigation controls at bottom */}
                 <div className="flex justify-between mt-6">
                   <button 
                     onClick={prevReview}
@@ -243,7 +277,7 @@ const CoachSection = () => {
                     {studentReviews.map((_, index) => (
                       <button 
                         key={index}
-                        onClick={() => setCurrentReviewIndex(index)}
+                        onClick={() => goToReview(index)}
                         className={`h-2 rounded-full transition-all ${
                           currentReviewIndex === index ? 'w-4 bg-heieh-neon-blue' : 'w-2 bg-white/30'
                         }`}
@@ -259,6 +293,11 @@ const CoachSection = () => {
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                   </button>
+                </div>
+
+                {/* Swipe instructions for mobile - only visible on small screens */}
+                <div className="text-center text-white/50 text-xs mt-4 md:hidden">
+                  Swipe left or right to navigate
                 </div>
               </div>
             </div>

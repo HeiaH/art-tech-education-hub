@@ -46,6 +46,7 @@ const Index = () => {
       <ArtistSection />
       <CoachSection />
       <DeveloperSection />
+      <InstagramFeed limit={6} className="container mx-auto py-24" />
       <ContactSection />
       <Footer />
     </div>
