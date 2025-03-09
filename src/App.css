@@ -77,14 +77,20 @@ button.neumorph:hover.hover\:bg-heieh-neon-blue:hover {
   z-index: 1;
 }
 
-/* Ensure shadows aren't clipped */
-.overflow-hidden {
-  overflow: visible !important;
+/* Carousel container with proper spacing to avoid shadow clipping */
+.carousel-container {
+  padding: 10px;
+  margin: -10px;
+  overflow: visible;
 }
 
-/* Add margin to handle shadows without clipping */
-.overflow-hidden > div {
-  overflow: hidden !important;
-  margin: 10px;
-  width: calc(100% - 20px);
+/* Fix for review carousel to show only one review at a time */
+.carousel-container > div {
+  overflow: hidden;
+}
+
+/* Ensure buttons and their shadows aren't clipped */
+.carousel-container button {
+  margin: 5px;
+  z-index: 5;
 }

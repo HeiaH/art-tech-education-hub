@@ -226,7 +226,7 @@ const CoachSection = () => {
             }`} style={{ animationDelay: '400ms' }}>
               <h3 className="text-xl font-heading mb-6 text-center">{t('studentSuccessStories')}</h3>
               
-              <div className="relative overflow-hidden">
+              <div className="relative carousel-container">
                 {/* Reviews container with fixed width and properly styled cards */}
                 <div 
                   ref={reviewsContainerRef}
@@ -239,7 +239,7 @@ const CoachSection = () => {
                       className="px-4" 
                       style={{ width: `${100 / studentReviews.length}%` }}
                     >
-                      <div className="neumorph p-6 rounded-xl m-2 shadow-xl h-full">
+                      <div className="neumorph p-6 rounded-xl h-full">
                         <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-4">
                           "{review.text}"
                         </blockquote>

@@ -51,12 +51,13 @@ const AboutMe = () => {
             >
               <div className="neumorph aspect-square overflow-hidden rounded-2xl max-w-md mx-auto">
                 <div className="w-full h-full p-3">
-                  {/* Updated profile image path - using the actual file name from folder */}
+                  {/* Fixed profile image display */}
                   <div className="w-full h-full rounded-xl bg-heieh-gray overflow-hidden relative">
                     <img 
                       src="/images/profile/meSunset.jpg" 
                       alt="Profile" 
                       className="w-full h-full object-cover"
+                      loading="eager"
                       onError={(e) => {
                         console.error("Image failed to load:", e);
                         (e.target as HTMLImageElement).src = "/placeholder.svg";
