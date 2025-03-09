@@ -79,14 +79,12 @@ button.neumorph:hover.hover\:bg-heieh-neon-blue:hover {
 
 /* Carousel container with proper padding to ensure shadows aren't clipped */
 .carousel-container {
-  padding: 24px;
-  margin: 16px;
+  padding: 16px;
+  margin: 8px;
   overflow: visible;
   box-shadow: 
     0 4px 15px rgba(0, 0, 0, 0.3),
     inset 0 1px 1px rgba(255, 255, 255, 0.1);
-  position: relative;
-  min-height: 380px; /* Ensures enough space for all content */
 }
 
 /* Hide default scrollbar but maintain scroll functionality */
@@ -96,6 +94,7 @@ button.neumorph:hover.hover\:bg-heieh-neon-blue:hover {
 
 /* Make sure carousel slides have consistent height */
 .carousel-container > div > div {
+  min-height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

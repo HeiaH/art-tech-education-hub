@@ -1,4 +1,3 @@
-
 import { ExternalLink, Music, Headphones, BookOpen, Users, ChevronUp, ChevronDown, Calendar } from 'lucide-react';
 import { useRevealAnimation } from '../utils/animations';
 import { useLanguage } from '../hooks/useLanguage';
@@ -242,32 +241,29 @@ const CoachSection = () => {
               
               {/* Carousel container with fixed height to maintain consistent layout */}
               <div className="relative carousel-container neumorph rounded-xl p-8 overflow-hidden">
-                {/* Carousel content with fixed height */}
-                <div className="relative mb-12">
-                  {/* Horizontal scrollable container */}
-                  <div 
-                    ref={carouselRef}
-                    className="flex overflow-x-hidden snap-x snap-mandatory w-full"
-                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                  >
-                    {studentReviews.map((review, index) => (
-                      <div 
-                        key={index}
-                        className="min-w-full flex-shrink-0 snap-center h-[280px]"
-                      >
-                        <div className="h-full flex flex-col justify-between overflow-y-auto">
-                          <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-4">
-                            "{review.text}"
-                          </blockquote>
-                          <div className="text-right text-white/70">— {review.name}</div>
-                        </div>
+                {/* Horizontal scrollable container */}
+                <div 
+                  ref={carouselRef}
+                  className="flex overflow-x-hidden snap-x snap-mandatory w-full"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
+                  {studentReviews.map((review, index) => (
+                    <div 
+                      key={index}
+                      className="min-w-full flex-shrink-0 snap-center"
+                    >
+                      <div className="h-full">
+                        <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-4">
+                          "{review.text}"
+                        </blockquote>
+                        <div className="text-right text-white/70">— {review.name}</div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
                 
                 {/* Fixed position navigation controls at bottom */}
-                <div className="flex justify-between absolute bottom-6 left-8 right-8">
+                <div className="flex justify-between mt-6">
                   <button 
                     onClick={prevReview}
                     className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors hover:bg-heieh-neon-blue/10 hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(26,115,232,0.3)]"
@@ -300,7 +296,7 @@ const CoachSection = () => {
                 </div>
 
                 {/* Swipe instructions for mobile - only visible on small screens */}
-                <div className="text-center text-white/50 text-xs mt-2 absolute bottom-2 left-0 right-0 md:hidden">
+                <div className="text-center text-white/50 text-xs mt-4 md:hidden">
                   Swipe left or right to navigate
                 </div>
               </div>
