@@ -8,6 +8,7 @@ import CoachSection from '../components/CoachSection';
 import DeveloperSection from '../components/DeveloperSection';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
+import InstagramFeed from '../components/InstagramFeed';
 
 const Index = () => {
   // Setup IntersectionObserver for animations

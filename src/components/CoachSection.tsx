@@ -125,13 +125,6 @@ const CoachSection = () => {
     };
   }, [currentReviewIndex, studentReviews.length]);
 
-  // Update carousel position when index changes
-  useEffect(() => {
-    if (reviewsContainerRef.current) {
-      reviewsContainerRef.current.style.transform = `translateX(-${currentReviewIndex * 100}%)`;
-    }
-  }, [currentReviewIndex]);
-
   return (
     <section 
       id="coach" 
@@ -220,33 +213,19 @@ const CoachSection = () => {
               ))}
             </div>
             
-            {/* Student reviews carousel - FIXED IMPLEMENTATION */}
+            {/* Student reviews carousel - FIXED to show one review at a time */}
             <div className={`mt-16 p-8 max-w-3xl mx-auto ${
               sectionVisible ? 'animate-fade-in' : 'opacity-0'
             }`} style={{ animationDelay: '400ms' }}>
               <h3 className="text-xl font-heading mb-6 text-center">{t('studentSuccessStories')}</h3>
               
               <div className="relative carousel-container">
-                {/* Reviews container with fixed width and properly styled cards */}
-                <div 
-                  ref={reviewsContainerRef}
-                  className="flex transition-transform duration-500 ease-in-out"
-                  style={{ width: `${studentReviews.length * 100}%` }}
-                >
-                  {studentReviews.map((review, index) => (
-                    <div 
-                      key={index} 
-                      className="px-4" 
-                      style={{ width: `${100 / studentReviews.length}%` }}
-                    >
-                      <div className="neumorph p-6 rounded-xl h-full">
-                        <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-4">
-                          "{review.text}"
-                        </blockquote>
-                        <div className="text-right text-white/70">— {review.name}</div>
-                      </div>
-                    </div>
-                  ))}
+                {/* Single review display */}
+                <div className="neumorph p-6 rounded-xl h-full">
+                  <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-4">
+                    "{studentReviews[currentReviewIndex].text}"
+                  </blockquote>
+                  <div className="text-right text-white/70">— {studentReviews[currentReviewIndex].name}</div>
                 </div>
                 
                 {/* Navigation controls */}
