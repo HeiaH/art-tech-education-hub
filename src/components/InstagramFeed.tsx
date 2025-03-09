@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { ExternalLink, RefreshCw, Instagram } from 'lucide-react';
+import { ExternalLink, RefreshCw } from 'lucide-react';
 import { useRevealAnimation } from '../utils/animations';
 import { useLanguage } from '../hooks/useLanguage';
 
@@ -26,7 +26,9 @@ const InstagramFeed = ({ limit = 6, className = "" }: InstagramFeedProps) => {
 
   useEffect(() => {
     // This is a placeholder for the actual Instagram API integration
-    // In a real implementation, you would fetch data from the Instagram Graph API
+    // In a real implementation, you would fetch data from the Instagram Basic Display API
+    // For demo purposes, we're simulating the response
+    
     const fetchInstagramFeed = async () => {
       try {
         setLoading(true);
@@ -94,82 +96,68 @@ const InstagramFeed = ({ limit = 6, className = "" }: InstagramFeedProps) => {
   };
 
   return (
-    <section 
+    <div 
       ref={ref as React.RefObject<HTMLDivElement>}
       className={`${className} ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
-      id="instagram-feed"
     >
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <div className="flex items-center gap-3">
-            <Instagram size={24} className="text-heieh-neon-green" />
-            <h2 className="text-2xl md:text-3xl font-heading">Instagram Feed</h2>
-          </div>
-          <button 
-            onClick={refreshFeed}
-            disabled={loading}
-            className="neumorph p-2 rounded-full hover:text-heieh-neon-green transition-colors"
-            aria-label="Refresh Instagram feed"
-          >
-            <RefreshCw size={18} className={loading ? 'animate-spin' : ''} />
-          </button>
-        </div>
-
-        {error && (
-          <div className="neumorph p-4 rounded-xl bg-red-500/10 text-red-300 mb-6">
-            {error}
-          </div>
-        )}
-
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-          {posts.map((post) => (
-            <a
-              key={post.id}
-              href={post.permalink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="neumorph overflow-hidden rounded-xl group relative transform transition-transform hover:scale-[1.02] hover:shadow-[0_5px_15px_rgba(0,0,0,0.5)]"
-            >
-              <div className="aspect-square overflow-hidden">
-                <img 
-                  src={post.media_url || post.thumbnail_url} 
-                  alt={post.caption || "Instagram post"} 
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  loading="lazy"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
-                <p className="text-white text-sm line-clamp-3">{post.caption}</p>
-                <div className="mt-2 text-white/70 text-xs flex items-center gap-1">
-                  <span>View on Instagram</span>
-                  <ExternalLink size={12} />
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-
-        <div className="mt-8 text-center">
-          <a 
-            href="https://instagram.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="neumorph py-2 px-6 rounded-full inline-flex items-center gap-2 hover:bg-heieh-neon-green hover:text-black transition-all duration-300 hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(29,185,84,0.4)]"
-          >
-            <Instagram size={16} />
-            <span>Follow on Instagram</span>
-            <ExternalLink size={16} />
-          </a>
-        </div>
-
-        <div className="mt-8 text-center text-white/60 text-sm max-w-2xl mx-auto">
-          <p>
-            Note: To display your actual Instagram posts, you will need to set up the Instagram Basic Display API, 
-            obtain an access token, and implement the API calls. The posts shown here are placeholders.
-          </p>
-        </div>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-xl font-heading">Instagram Feed</h3>
+        <button 
+          onClick={refreshFeed}
+          disabled={loading}
+          className="neumorph p-2 rounded-full hover:text-heieh-neon-green transition-colors"
+          aria-label="Refresh Instagram feed"
+        >
+          <RefreshCw size={18} className={loading ? 'animate-spin' : ''} />
+        </button>
       </div>
-    </section>
+
+      {error && (
+        <div className="neumorph p-4 rounded-xl bg-red-500/10 text-red-300 mb-6">
+          {error}
+        </div>
+      )}
+
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {posts.map((post) => (
+          <a
+            key={post.id}
+            href={post.permalink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="neumorph overflow-hidden rounded-xl group relative"
+          >
+            <div className="aspect-square overflow-hidden">
+              <img 
+                src={post.media_url || post.thumbnail_url} 
+                alt={post.caption || "Instagram post"} 
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                loading="lazy"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
+              <p className="text-white text-sm line-clamp-3">{post.caption}</p>
+              <div className="mt-2 text-white/70 text-xs flex items-center gap-1">
+                <span>View on Instagram</span>
+                <ExternalLink size={12} />
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div className="mt-6 text-center">
+        <a 
+          href="https://instagram.com" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="neumorph py-2 px-6 rounded-full inline-flex items-center gap-2 hover:bg-heieh-neon-green hover:text-black transition-all duration-300 hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(29,185,84,0.4)]"
+        >
+          <span>Follow on Instagram</span>
+          <ExternalLink size={16} />
+        </a>
+      </div>
+    </div>
   );
 };
 
