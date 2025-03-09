@@ -66,3 +66,25 @@ button.neumorph:hover.hover\:bg-heieh-neon-blue:hover {
     0 5px 15px rgba(26, 115, 232, 0.4),
     0 0 0 1px rgba(26, 115, 232, 0.3);
 }
+
+/* Carousel fixes */
+.neumorph {
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 
+              0 2px 8px rgba(0, 0, 0, 0.5);
+  background-color: rgba(30, 30, 35, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure shadows aren't clipped */
+.overflow-hidden {
+  overflow: visible !important;
+}
+
+/* Add margin to handle shadows without clipping */
+.overflow-hidden > div {
+  overflow: hidden !important;
+  margin: 10px;
+  width: calc(100% - 20px);
+}

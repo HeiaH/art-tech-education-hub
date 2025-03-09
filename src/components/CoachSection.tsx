@@ -220,14 +220,14 @@ const CoachSection = () => {
               ))}
             </div>
             
-            {/* Student reviews carousel */}
+            {/* Student reviews carousel - FIXED IMPLEMENTATION */}
             <div className={`mt-16 p-8 max-w-3xl mx-auto ${
               sectionVisible ? 'animate-fade-in' : 'opacity-0'
             }`} style={{ animationDelay: '400ms' }}>
               <h3 className="text-xl font-heading mb-6 text-center">{t('studentSuccessStories')}</h3>
               
               <div className="relative overflow-hidden">
-                {/* Reviews container */}
+                {/* Reviews container with fixed width and properly styled cards */}
                 <div 
                   ref={reviewsContainerRef}
                   className="flex transition-transform duration-500 ease-in-out"
@@ -236,11 +236,11 @@ const CoachSection = () => {
                   {studentReviews.map((review, index) => (
                     <div 
                       key={index} 
-                      className="w-full px-4" 
-                      style={{ flex: `0 0 ${100 / studentReviews.length}%` }}
+                      className="px-4" 
+                      style={{ width: `${100 / studentReviews.length}%` }}
                     >
                       <div className="neumorph p-6 rounded-xl m-2 shadow-xl h-full">
-                        <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-2">
+                        <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-4">
                           "{review.text}"
                         </blockquote>
                         <div className="text-right text-white/70">— {review.name}</div>

@@ -51,17 +51,17 @@ const AboutMe = () => {
             >
               <div className="neumorph aspect-square overflow-hidden rounded-2xl max-w-md mx-auto">
                 <div className="w-full h-full p-3">
-                  {/* Profile image from the new folder structure */}
-                  <div className="w-full h-full rounded-xl bg-heieh-gray overflow-hidden relative image-loading">
+                  {/* Updated profile image path - using the actual file name from folder */}
+                  <div className="w-full h-full rounded-xl bg-heieh-gray overflow-hidden relative">
                     <img 
-                      src="/images/profile/profile.jpg" 
+                      src="/images/profile/meSunset.jpg" 
                       alt="Profile" 
-                      className="w-full h-full object-cover opacity-0 transition-opacity duration-500" 
-                      onLoad={(e) => (e.target as HTMLImageElement).classList.remove('opacity-0')}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        console.error("Image failed to load:", e);
+                        (e.target as HTMLImageElement).src = "/placeholder.svg";
+                      }}
                     />
-                    <div className="absolute inset-0 flex items-center justify-center text-white/30">
-                      Profile Image
-                    </div>
                   </div>
                 </div>
               </div>
