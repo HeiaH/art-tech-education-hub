@@ -200,7 +200,7 @@ const CoachSection = () => {
             {/* "Book a free coaching session" button */}
             <div className="text-center mt-6">
               <a 
-                href="mailto:contact@heieh.com?subject=Free%20Coaching%20Session%20Request" 
+                href="mailto:contact@heiah.com?subject=Free%20Coaching%20Session%20Request" 
                 className="neumorph py-3 px-6 bg-heieh-neon-green/20 hover:bg-heieh-neon-green text-heieh-neon-green hover:text-black font-semibold rounded-full inline-flex items-center gap-2 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_5px_15px_rgba(29,185,84,0.4)] hover:translate-y-[-2px]"
               >
                 <Calendar size={18} />
@@ -238,14 +238,14 @@ const CoachSection = () => {
               ))}
             </div>
             
-            {/* Student reviews carousel - FIXED with proper fixed height and navigation */}
+            {/* Student reviews carousel with FIXED navigation layout */}
             <div className={`mt-16 max-w-3xl mx-auto ${
               sectionVisible ? 'animate-fade-in' : 'opacity-0'
             }`} style={{ animationDelay: '400ms' }}>
               <h3 className="text-xl font-heading mb-6 text-center">{t('studentSuccessStories')}</h3>
               
               {/* Fixed height carousel container */}
-              <div className="carousel-container">
+              <div className="carousel-container mb-8">
                 <div 
                   className="review-carousel neumorph rounded-xl relative"
                   onTouchStart={handleTouchStart}
@@ -271,39 +271,39 @@ const CoachSection = () => {
                     ← Swipe to navigate →
                   </div>
                 </div>
+              </div>
+              
+              {/* Navigation controls in a separate container with horizontal layout */}
+              <div className="flex items-center justify-between px-4 mb-8">
+                <button 
+                  onClick={prevReview}
+                  className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors hover:bg-heieh-neon-blue/10 hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(26,115,232,0.3)]"
+                  aria-label="Previous review"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
                 
-                {/* Navigation controls outside the carousel for fixed positioning */}
-                <div className="review-navigation">
-                  <button 
-                    onClick={prevReview}
-                    className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors hover:bg-heieh-neon-blue/10 hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(26,115,232,0.3)]"
-                    aria-label="Previous review"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                  </button>
-                  
-                  {/* Pagination dots */}
-                  <div className="flex gap-2 items-center">
-                    {studentReviews.map((_, index) => (
-                      <button 
-                        key={index}
-                        onClick={() => setCurrentReviewIndex(index)}
-                        className={`h-2 rounded-full transition-all ${
-                          currentReviewIndex === index ? 'w-4 bg-heieh-neon-blue' : 'w-2 bg-white/30'
-                        }`}
-                        aria-label={`Go to review ${index + 1}`}
-                      />
-                    ))}
-                  </div>
-                  
-                  <button 
-                    onClick={nextReview}
-                    className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors hover:bg-heieh-neon-blue/10 hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(26,115,232,0.3)]"
-                    aria-label="Next review"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                  </button>
+                {/* Pagination dots - centered */}
+                <div className="flex gap-2 items-center">
+                  {studentReviews.map((_, index) => (
+                    <button 
+                      key={index}
+                      onClick={() => setCurrentReviewIndex(index)}
+                      className={`h-2 rounded-full transition-all ${
+                        currentReviewIndex === index ? 'w-4 bg-heieh-neon-blue' : 'w-2 bg-white/30'
+                      }`}
+                      aria-label={`Go to review ${index + 1}`}
+                    />
+                  ))}
                 </div>
+                
+                <button 
+                  onClick={nextReview}
+                  className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors hover:bg-heieh-neon-blue/10 hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(26,115,232,0.3)]"
+                  aria-label="Next review"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
               </div>
             </div>
             

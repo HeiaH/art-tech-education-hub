@@ -121,17 +121,6 @@ button.neumorph:hover.hover\:bg-heieh-neon-blue:hover {
   border-radius: 10px;
 }
 
-/* Fixed position for navigation to prevent jumping */
-.review-navigation {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 12px;
-  width: 100%;
-  position: relative;
-  height: 48px; /* Fixed height for navigation controls */
-}
-
 /* Touch swipe indicator */
 .swipe-indicator {
   position: absolute;

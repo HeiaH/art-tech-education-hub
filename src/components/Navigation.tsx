@@ -46,7 +46,7 @@ const Navigation = () => {
           className="text-white text-2xl font-heading tracking-wide"
         >
           <div className="logo-container">
-            <span className="logo">HeiǝH</span>
+            <span className="logo">HeiaH</span>
           </div>
         </a>
 
