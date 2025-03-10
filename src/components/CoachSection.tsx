@@ -1,4 +1,3 @@
-
 import { ExternalLink, Music, Headphones, BookOpen, Users, ChevronUp, ChevronDown, Calendar } from 'lucide-react';
 import { useRevealAnimation } from '../utils/animations';
 import { useLanguage } from '../hooks/useLanguage';
@@ -200,7 +199,9 @@ const CoachSection = () => {
             {/* "Book a free coaching session" button */}
             <div className="text-center mt-6">
               <a 
-                href="mailto:contact@heiah.com?subject=Free%20Coaching%20Session%20Request" 
+                href="https://calendly.com/lucien-kreiser/30min"
+                target="_blank" 
+                rel="noopener noreferrer"
                 className="neumorph py-3 px-6 bg-heieh-neon-green/20 hover:bg-heieh-neon-green text-heieh-neon-green hover:text-black font-semibold rounded-full inline-flex items-center gap-2 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_5px_15px_rgba(29,185,84,0.4)] hover:translate-y-[-2px]"
               >
                 <Calendar size={18} />

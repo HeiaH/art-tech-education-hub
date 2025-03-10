@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Send, User, Mail, MessageSquare } from 'lucide-react';
@@ -27,15 +26,19 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: t('messageSent'),
-        description: t('thankYouMessage'),
-      });
-      setFormData({ name: '', email: '', message: '' });
-      setIsSubmitting(false);
-    }, 1500);
+    // Open default email client with pre-filled email
+    const subject = encodeURIComponent(`Message from ${formData.name}`);
+    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+    window.location.href = `mailto:lucien.kreiser@gmail.com?subject=${subject}&body=${body}`;
+    
+    // Show success message
+    toast({
+      title: t('messageSent'),
+      description: t('thankYouMessage'),
+    });
+    
+    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(false);
   };
 
   return (
