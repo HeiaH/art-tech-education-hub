@@ -47,6 +47,7 @@ const Index = () => {
       <CoachSection />
       <DeveloperSection />
       <ContactSection />
+      <InstagramFeed />
       <Footer />
     </div>
   );

@@ -47,9 +47,9 @@ const Hero = () => {
 
       {/* Logo and content */}
       <div className="z-10 text-center px-6">
-        <div className={`text-7xl md:text-9xl font-heading mb-6 transition-all duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
+        <div className={`mb-6 transition-all duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
           <div className="logo-container inline-block">
-            <span className="logo">HeiǝH</span>
+            <img src="/lovable-uploads/08c9c6ed-01d6-4bdb-b053-4def41d94cbf.png" alt="HeiǝH Logo" className="logo h-32 md:h-48 w-auto" />
           </div>
         </div>
         
