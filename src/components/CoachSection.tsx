@@ -10,9 +10,8 @@ const CoachSection = () => {
   const { ref: cardsRef, isVisible: cardsVisible } = useRevealAnimation(0.2);
   const { t, language } = useLanguage();
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const reviewIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const touchStartX = useRef<number | null>(null);
+  const reviewIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Toggle section collapse
   const toggleSectionCollapse = () => {
@@ -209,7 +208,7 @@ const CoachSection = () => {
               </a>
             </div>
             
-            {/* One-on-one online coaching section - Moved here as requested */}
+            {/* One-on-one online coaching section */}
             <div className={`mt-12 neumorph p-8 rounded-2xl max-w-3xl mx-auto ${
               sectionVisible ? 'animate-fade-in' : 'opacity-0'
             }`} style={{ animationDelay: '500ms' }}>
@@ -239,72 +238,72 @@ const CoachSection = () => {
               ))}
             </div>
             
-            {/* FIXED Student reviews carousel - Now with proper height and swipe capability */}
+            {/* Student reviews carousel - FIXED with proper fixed height and navigation */}
             <div className={`mt-16 max-w-3xl mx-auto ${
               sectionVisible ? 'animate-fade-in' : 'opacity-0'
             }`} style={{ animationDelay: '400ms' }}>
               <h3 className="text-xl font-heading mb-6 text-center">{t('studentSuccessStories')}</h3>
               
-              {/* Carousel container with fixed height */}
-              <div 
-                className="review-carousel neumorph rounded-xl"
-                ref={carouselRef}
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
-              >
-                {/* Review slide with horizontal transition */}
+              {/* Fixed height carousel container */}
+              <div className="carousel-container">
                 <div 
-                  className="review-slide"
-                  style={{ transform: `translateX(-${currentReviewIndex * 100}%)` }}
+                  className="review-carousel neumorph rounded-xl relative"
+                  onTouchStart={handleTouchStart}
+                  onTouchEnd={handleTouchEnd}
                 >
-                  {/* Individual review cards, all with same height */}
-                  <div className="review-card p-6">
-                    <div className="review-content">
-                      <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-4">
-                        "{studentReviews[currentReviewIndex].text}"
-                      </blockquote>
+                  {/* Review slides container */}
+                  <div className="overflow-hidden">
+                    {/* Individual review card */}
+                    <div className="review-card p-6 flex flex-col">
+                      <div className="review-content flex-grow flex flex-col justify-center">
+                        <blockquote className="text-white/80 italic border-l-4 border-heieh-neon-blue pl-4 mb-4">
+                          "{studentReviews[currentReviewIndex].text}"
+                        </blockquote>
+                      </div>
+                      <div className="text-right text-white/70 mt-2">
+                        — {studentReviews[currentReviewIndex].name}
+                      </div>
                     </div>
-                    <div className="text-right text-white/70 mt-2">— {studentReviews[currentReviewIndex].name}</div>
+                  </div>
+                  
+                  {/* Swipe indicator for mobile only */}
+                  <div className="swipe-indicator">
+                    ← Swipe to navigate →
                   </div>
                 </div>
-
-                {/* Swipe indicator for mobile */}
-                <div className="swipe-indicator">
-                  ← Swipe to navigate →
-                </div>
-              </div>
-
-              {/* Navigation controls - Fixed position */}
-              <div className="review-navigation mt-4">
-                <button 
-                  onClick={prevReview}
-                  className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors hover:bg-heieh-neon-blue/10 hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(26,115,232,0.3)]"
-                  aria-label="Previous review"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                </button>
                 
-                {/* Pagination dots */}
-                <div className="flex gap-2 items-center">
-                  {studentReviews.map((_, index) => (
-                    <button 
-                      key={index}
-                      onClick={() => setCurrentReviewIndex(index)}
-                      className={`h-2 rounded-full transition-all ${
-                        currentReviewIndex === index ? 'w-4 bg-heieh-neon-blue' : 'w-2 bg-white/30'
-                      }`}
-                      aria-label={`Go to review ${index + 1}`}
-                    />
-                  ))}
+                {/* Navigation controls outside the carousel for fixed positioning */}
+                <div className="review-navigation">
+                  <button 
+                    onClick={prevReview}
+                    className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors hover:bg-heieh-neon-blue/10 hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(26,115,232,0.3)]"
+                    aria-label="Previous review"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                  </button>
+                  
+                  {/* Pagination dots */}
+                  <div className="flex gap-2 items-center">
+                    {studentReviews.map((_, index) => (
+                      <button 
+                        key={index}
+                        onClick={() => setCurrentReviewIndex(index)}
+                        className={`h-2 rounded-full transition-all ${
+                          currentReviewIndex === index ? 'w-4 bg-heieh-neon-blue' : 'w-2 bg-white/30'
+                        }`}
+                        aria-label={`Go to review ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                  
+                  <button 
+                    onClick={nextReview}
+                    className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors hover:bg-heieh-neon-blue/10 hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(26,115,232,0.3)]"
+                    aria-label="Next review"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                  </button>
                 </div>
-                
-                <button 
-                  onClick={nextReview}
-                  className="neumorph p-2 rounded-full hover:text-heieh-neon-blue transition-colors hover:bg-heieh-neon-blue/10 hover:translate-y-[-2px] hover:shadow-[0_5px_15px_rgba(26,115,232,0.3)]"
-                  aria-label="Next review"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </button>
               </div>
             </div>
             

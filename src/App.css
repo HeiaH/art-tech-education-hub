@@ -90,15 +90,12 @@ button.neumorph:hover.hover\:bg-heieh-neon-blue:hover {
   position: relative;
   overflow: hidden;
   border-radius: 12px;
+  height: 300px; /* Fixed height for the carousel */
 }
 
-.review-slide {
-  width: 100%;
-  transition: transform 0.5s ease;
-}
-
+/* Fixed height for the review card to ensure consistency */
 .review-card {
-  height: 300px; /* Fixed height for all cards */
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -124,12 +121,15 @@ button.neumorph:hover.hover\:bg-heieh-neon-blue:hover {
   border-radius: 10px;
 }
 
+/* Fixed position for navigation to prevent jumping */
 .review-navigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-top: 12px;
   width: 100%;
+  position: relative;
+  height: 48px; /* Fixed height for navigation controls */
 }
 
 /* Touch swipe indicator */

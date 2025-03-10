@@ -49,7 +49,7 @@ const Hero = () => {
       <div className="z-10 text-center px-6">
         <div className={`mb-6 transition-all duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
           <div className="logo-container inline-block">
-            <img src="/lovable-uploads/08c9c6ed-01d6-4bdb-b053-4def41d94cbf.png" alt="HeiǝH Logo" className="logo h-32 md:h-48 w-auto" />
+            <img src="/lovable-uploads/08c9c6ed-01d6-4bdb-b053-4def41d94cbf.png" alt="HeiǝH Logo" className="logo h-64 md:h-96 w-auto" /> {/* Increased the logo size here */}
           </div>
         </div>
         
