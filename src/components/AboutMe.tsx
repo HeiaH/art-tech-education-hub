@@ -45,9 +45,10 @@ const AboutMe = () => {
             {/* Profile image */}
             <div 
               ref={imageRef as React.RefObject<HTMLDivElement>}
-              className={`${
-                imageVisible ? 'animate-fade-in-right' : 'opacity-0 translate-x-10'
-              } transition-all duration-700`}
+              className={`transition-opacity duration-700 ${
+                imageVisible ? 'opacity-100 transform-none' : 'opacity-0'
+              }`}
+              style={{ transform: imageVisible ? 'none' : 'translateX(10px)', transition: 'opacity 700ms, transform 700ms' }}
             >
               <div className="neumorph aspect-square overflow-hidden rounded-2xl max-w-md mx-auto">
                 <div className="w-full h-full p-3">
@@ -71,9 +72,12 @@ const AboutMe = () => {
             {/* About text */}
             <div 
               ref={textRef as React.RefObject<HTMLDivElement>}
-              className={`${
-                textVisible ? 'animate-fade-in-left' : 'opacity-0 translate-x-10'
-              } transition-all duration-700`}
+              className="transition-opacity duration-700"
+              style={{ 
+                opacity: textVisible ? 1 : 0, 
+                transform: textVisible ? 'none' : 'translateX(-10px)',
+                transition: 'opacity 700ms, transform 700ms'
+              }}
             >
               <div className="neumorph p-8 rounded-2xl h-full">
                 <blockquote className="text-xl md:text-2xl font-heading text-white mb-6 border-l-4 border-heieh-neon-green pl-4 italic">

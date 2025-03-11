@@ -10,7 +10,10 @@ export const useRevealAnimation = (threshold = 0.1, rootMargin = '0px') => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          // Use setTimeout to prevent double animation/jittering
+          setTimeout(() => {
+            setIsVisible(true);
+          }, 50);
           observer.unobserve(entry.target);
         }
       },
@@ -39,8 +42,13 @@ export const animateCharacters = (text: string, delay = 100) => {
   return characters.map((char, index) => (
     <span 
       key={index}
-      className="inline-block opacity-0 animate-fade-in"
-      style={{ animationDelay: `${index * delay}ms` }}
+      className="inline-block opacity-0"
+      style={{ 
+        animation: 'fade-in 500ms forwards',
+        animationDelay: `${index * delay}ms`,
+        // Use style-based animation to prevent class conflicts
+        opacity: 0 
+      }}
     >
       {char}
     </span>

@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
@@ -17,12 +18,15 @@ const Index = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('reveal-animation');
+            // Add a small delay to prevent jittering on mobile
+            setTimeout(() => {
+              entry.target.classList.add('reveal-animation');
+            }, 50);
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
     );
 
     // Observe all elements with appear-animation class
