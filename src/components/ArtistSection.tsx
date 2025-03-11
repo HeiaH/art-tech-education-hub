@@ -1,8 +1,9 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Music, Camera, Pencil, Palette, Settings, ChevronDown, ChevronUp, X } from 'lucide-react';
 import { useRevealAnimation } from '../utils/animations';
 import { useLanguage } from '../hooks/useLanguage';
+import { getCategoryImages } from '../utils/imageHelper';
 
 // Categories for the artist section
 const categories = [
@@ -34,8 +35,28 @@ const ArtistSection = () => {
   const [activeDrawingSubcategory, setActiveDrawingSubcategory] = useState('watercolor');
   const [isSectionCollapsed, setIsSectionCollapsed] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [categoryImages, setCategoryImages] = useState<string[]>([]);
   const { ref: sectionRef, isVisible: sectionVisible } = useRevealAnimation();
   const { t, language } = useLanguage();
+  
+  // Load images when category or subcategory changes
+  useEffect(() => {
+    const loadImages = async () => {
+      let images: string[] = [];
+      
+      if (activeCategory === 'photography') {
+        images = await getCategoryImages(activeCategory, activePhotoSubcategory);
+      } else if (activeCategory === 'drawing') {
+        images = await getCategoryImages(activeCategory, activeDrawingSubcategory);
+      } else if (activeCategory === 'painting') {
+        images = await getCategoryImages(activeCategory);
+      }
+      
+      setCategoryImages(images);
+    };
+    
+    loadImages();
+  }, [activeCategory, activePhotoSubcategory, activeDrawingSubcategory]);
   
   // Handle category change
   const handleCategoryChange = (categoryId: string) => {
@@ -63,22 +84,6 @@ const ArtistSection = () => {
 
   const closeImageViewer = () => {
     setSelectedImage(null);
-  };
-
-  // Helper function to get images for a category/subcategory
-  const getImages = (category: string, subcategory?: string) => {
-    let basePath = '/images';
-    
-    if (category === 'photography' && subcategory) {
-      return [`${basePath}/photography/${subcategory}/image1.jpg`, `${basePath}/photography/${subcategory}/image2.jpg`, `${basePath}/photography/${subcategory}/image3.jpg`];
-    } else if (category === 'drawing' && subcategory) {
-      return [`${basePath}/drawing/${subcategory}/image1.jpg`, `${basePath}/drawing/${subcategory}/image2.jpg`, `${basePath}/drawing/${subcategory}/image3.jpg`];
-    } else if (category === 'painting') {
-      return [`${basePath}/painting/image1.jpg`, `${basePath}/painting/image2.jpg`];
-    }
-    
-    // Default fallback
-    return [];
   };
 
   // Render category content based on active category
@@ -130,7 +135,7 @@ const ArtistSection = () => {
             
             {/* Dynamic gallery with masonry-like layout */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-min">
-              {getImages('photography', activePhotoSubcategory).map((img, i) => {
+              {categoryImages.map((img, i) => {
                 // Determine if image should span multiple columns (for variety)
                 const spanClass = i % 5 === 0 ? 'col-span-2' : '';
                 
@@ -184,7 +189,7 @@ const ArtistSection = () => {
             
             {/* Dynamic drawing gallery */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {getImages('drawing', activeDrawingSubcategory).map((img, i) => (
+              {categoryImages.map((img, i) => (
                 <div 
                   key={i} 
                   className="overflow-hidden rounded-lg cursor-pointer transform transition hover:scale-105"
@@ -215,7 +220,7 @@ const ArtistSection = () => {
           <div className="neumorph p-6 rounded-2xl animate-fade-in">
             <h3 className="text-2xl font-heading mb-4">{t('painting')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {getImages('painting').map((img, i) => (
+              {categoryImages.map((img, i) => (
                 <div 
                   key={i} 
                   className="overflow-hidden rounded-lg cursor-pointer transform transition hover:scale-105"
