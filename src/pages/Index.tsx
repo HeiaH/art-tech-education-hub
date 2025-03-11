@@ -1,9 +1,8 @@
-
 import { useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
 import AboutMe from '../components/AboutMe';
-import ArtistSection from '../components/ArtistSection';
+import ArtistSection from '../components/artist';
 import CoachSection from '../components/CoachSection';
 import DeveloperSection from '../components/DeveloperSection';
 import ContactSection from '../components/ContactSection';
