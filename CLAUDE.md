@@ -19,6 +19,10 @@ Live at **heiah.de**, deployed via **Vercel** from the `main` branch on GitHub (
 |---|---|---|
 | `/` | `src/pages/Index.tsx` | Main portfolio (single-page scroll) |
 | `/learn` | `src/pages/Learn.tsx` | Music education landing page |
+| `/login` | `src/pages/Login.tsx` | Email/password login |
+| `/register` | `src/pages/Register.tsx` | Email/password registration |
+| `/dashboard` | `src/pages/Dashboard.tsx` | Member dashboard (protected) |
+| `/course/:moduleId` | `src/pages/CoursePlayer.tsx` | Course lesson viewer (protected) |
 | `*` | `src/pages/NotFound.tsx` | 404 |
 
 `vercel.json` contains a catch-all rewrite to `index.html` so client-side routes work on Vercel.
@@ -36,6 +40,10 @@ src/
 ├── pages/
 │   ├── Index.tsx              # Portfolio homepage
 │   ├── Learn.tsx              # Course landing page
+│   ├── Login.tsx              # Auth login page
+│   ├── Register.tsx           # Auth registration page
+│   ├── Dashboard.tsx          # Member dashboard (protected)
+│   ├── CoursePlayer.tsx       # Course lesson viewer (protected)
 │   └── NotFound.tsx
 ├── components/
 │   ├── Navigation.tsx         # Portfolio nav (glassmorphic, sticky)
@@ -65,13 +73,16 @@ src/
 │   │   ├── PricingSection.tsx # 3-tier pricing cards
 │   │   ├── CourseFAQ.tsx      # FAQ accordion
 │   │   └── CourseCTA.tsx      # Final CTA
+│   ├── ProtectedRoute.tsx     # Auth guard — redirects to /login
 │   └── ui/                    # shadcn/ui primitives (~40 components)
 ├── hooks/
 │   ├── useLanguage.tsx        # EN/DE i18n context
+│   ├── useAuth.tsx            # Supabase auth context (user, signIn, signUp, signOut)
 │   ├── use-mobile.tsx         # Boolean mobile breakpoint (< 768px)
 │   └── use-toast.ts           # Toast state management
 ├── lib/
-│   └── utils.ts               # cn() = clsx + tailwind-merge
+│   ├── utils.ts               # cn() = clsx + tailwind-merge
+│   └── supabase.ts            # Supabase client initialization
 └── utils/
     ├── animations.tsx         # useRevealAnimation, useMouseParallax, animateCharacters
     ├── imageHelper.ts         # Image loading with placeholder fallback
@@ -133,7 +144,8 @@ Wrapping order (outermost first):
 2. `TooltipProvider` — Radix tooltip context
 3. `LanguageProvider` — EN/DE i18n
 4. `BrowserRouter` — routing
-5. `Toaster` + `Sonner` — notifications
+5. `AuthProvider` — Supabase auth context
+6. `Toaster` + `Sonner` — notifications
 
 ---
 
@@ -259,12 +271,12 @@ All Radix UI primitives available via `@radix-ui/*`.
 
 The following is planned but not implemented:
 
-- **Supabase auth** — sign up / login / protected course content
+- ~~**Supabase auth**~~ — **DONE**: sign up, login, protected routes, auth context
 - **Stripe payments** — actual checkout for course and membership tiers
 - **Cal.com integration** — booking embed (currently just an external link)
 - **Course player** — interactive lesson viewer with progress tracking
 - **Exercises system** — interactive exercises within lessons
-- **Member area** — dashboard for enrolled students
+- ~~**Member area**~~ — **DONE**: dashboard with course list, progress bars, quick actions
 
 ---
 

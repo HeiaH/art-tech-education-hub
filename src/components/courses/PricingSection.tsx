@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { Check, Zap, Calendar } from 'lucide-react';
+import { Check, Zap, Calendar, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { redirectToCheckout } from '@/lib/stripe';
 
 const tiers = [
   {
@@ -83,13 +84,21 @@ const PricingSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleCTA = (tier: typeof tiers[0]) => {
+  const [loadingTier, setLoadingTier] = useState<string | null>(null);
+
+  const handleCTA = async (tier: typeof tiers[0]) => {
     if (tier.id === 'coaching' && tier.calLink) {
       window.open(tier.calLink, '_blank', 'noopener');
       return;
     }
-    // Stripe checkout links will be wired here
-    console.log(`checkout: ${tier.id}`);
+
+    setLoadingTier(tier.id);
+    try {
+      await redirectToCheckout(tier.id);
+    } catch (err) {
+      console.error('Stripe checkout error:', err);
+      setLoadingTier(null);
+    }
   };
 
   return (
@@ -176,13 +185,21 @@ const PricingSection = () => {
                 {/* CTA */}
                 <Button
                   onClick={() => handleCTA(tier)}
+                  disabled={loadingTier === tier.id}
                   className={
                     isFeatured
-                      ? 'w-full bg-heieh-neon-green hover:bg-heieh-neon-green/90 text-black font-semibold rounded-xl py-5 transition-all hover:shadow-[0_0_20px_rgba(29,185,84,0.35)]'
-                      : 'w-full border border-white/15 text-white/80 hover:bg-white/5 rounded-xl py-5 bg-transparent'
+                      ? 'w-full bg-heieh-neon-green hover:bg-heieh-neon-green/90 text-black font-semibold rounded-xl py-5 transition-all hover:shadow-[0_0_20px_rgba(29,185,84,0.35)] disabled:opacity-70'
+                      : 'w-full border border-white/15 text-white/80 hover:bg-white/5 rounded-xl py-5 bg-transparent disabled:opacity-70'
                   }
                 >
-                  {tier.ctaLabel}
+                  {loadingTier === tier.id ? (
+                    <span className="flex items-center gap-2">
+                      <Loader2 size={16} className="animate-spin" />
+                      Redirecting…
+                    </span>
+                  ) : (
+                    tier.ctaLabel
+                  )}
                 </Button>
               </div>
             );
