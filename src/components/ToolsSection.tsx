@@ -12,8 +12,8 @@ type Tool = {
 
 const TOOLS: Tool[] = [
   { key: 'scanner', url: 'https://scanner.heiah.de', icon: LineChart,    accent: 'green',  status: 'live' },
+  { key: 'studio',  url: 'https://studio.heiah.de',  icon: FlaskConical, accent: 'blue',   status: 'live' },
   { key: 'mission', url: 'https://mission.heiah.de', icon: Radar,        accent: 'purple', status: 'live' },
-  { key: 'studio',  url: 'https://studio.heiah.de',  icon: FlaskConical, accent: 'blue',   status: 'soon' },
   { key: 'vault',   url: 'https://vault.heiah.de',   icon: Library,      accent: 'orange', status: 'soon' },
 ];
 
