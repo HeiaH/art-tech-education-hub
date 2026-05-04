@@ -7,6 +7,7 @@ export const translations = {
     artist: 'Artist',
     developer: 'Developer',
     coach: 'Coach',
+    tools: 'Tools',
     contact: 'Contact',
     allRightsReserved: 'All rights reserved.',
     privacy: 'Privacy Policy',
@@ -78,6 +79,19 @@ export const translations = {
     onlineCoaching: 'One-on-One Online Coaching',
     onlineCoachingDesc: 'Personalized coaching sessions tailored to your specific needs and goals, delivered online for convenience and flexibility.',
     bookFreeSession: 'Book a Free Coaching Session Now',
+
+    // Tools Section
+    toolsBadge: 'Tools',
+    toolsTitle: 'My Trading & Studio Stack',
+    toolsSubtitle: 'A growing suite of tools I use daily — charts, backtests, signals, and notes. Each one runs on its own subdomain.',
+    tool_scanner_name: 'Scanner',
+    tool_scanner_desc: 'Multi-asset TradingView dashboard with 9 strategy presets, MTF confluence scoring, and live signals across forex, crypto, indices and commodities.',
+    tool_studio_name: 'Studio',
+    tool_studio_desc: 'Streamlit-based research environment for backtesting, walk-forward validation, and strategy iteration on real historical data.',
+    tool_mission_name: 'Mission Control',
+    tool_mission_desc: 'Live operations dashboard for active strategies, open positions, recent signals, and the trading engine’s health.',
+    tool_vault_name: 'Vault',
+    tool_vault_desc: 'My Imperium knowledge base — trade journal, post-mortems, strategy notes, and a few public articles, served straight from Markdown.',
   },
   de: {
     // Navigation & General
@@ -85,6 +99,7 @@ export const translations = {
     artist: 'Künstler',
     developer: 'Entwickler',
     coach: 'Coach',
+    tools: 'Tools',
     contact: 'Kontakt',
     allRightsReserved: 'Alle Rechte vorbehalten.',
     privacy: 'Datenschutz',
@@ -156,5 +171,18 @@ export const translations = {
     onlineCoaching: 'Einzelunterricht Online',
     onlineCoachingDesc: 'Personalisierte Coaching-Sitzungen, die auf deine spezifischen Bedürfnisse und Ziele zugeschnitten sind, online angeboten für Komfort und Flexibilität.',
     bookFreeSession: 'Jetzt kostenlose Probestunde buchen',
+
+    // Tools Section
+    toolsBadge: 'Werkzeuge',
+    toolsTitle: 'Mein Trading- & Studio-Stack',
+    toolsSubtitle: 'Eine wachsende Sammlung an Tools, die ich täglich nutze — Charts, Backtests, Signale, Notizen. Jedes läuft auf einer eigenen Subdomain.',
+    tool_scanner_name: 'Scanner',
+    tool_scanner_desc: 'Multi-Asset-Dashboard mit TradingView-Widget, 9 Strategie-Presets, MTF-Confluence-Score und Live-Signalen über Forex, Crypto, Indizes und Rohstoffe.',
+    tool_studio_name: 'Studio',
+    tool_studio_desc: 'Streamlit-basierte Forschungsumgebung für Backtests, Walk-Forward-Validierung und Strategie-Iteration auf echten historischen Daten.',
+    tool_mission_name: 'Mission Control',
+    tool_mission_desc: 'Live-Cockpit für aktive Strategien, offene Positionen, aktuelle Signale und den Gesundheitszustand der Trading-Engine.',
+    tool_vault_name: 'Vault',
+    tool_vault_desc: 'Mein Imperium-Wissensspeicher — Trade-Journal, Post-Mortems, Strategie-Notizen und ein paar öffentliche Artikel, direkt aus Markdown gerendert.',
   }
 };

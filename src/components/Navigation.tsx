@@ -66,7 +66,7 @@ const Navigation = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
-          {['about', 'artist', 'coach', 'developer', 'contact'].map((item) => (
+          {['about', 'artist', 'coach', 'developer', 'tools', 'contact'].map((item) => (
             <button
               key={item}
               onClick={() => scrollToSection(item)}
@@ -134,7 +134,7 @@ const Navigation = () => {
         } transition-all duration-300 ease-in-out`}
       >
         <div className="flex flex-col items-center space-y-6 py-4">
-          {['about', 'artist', 'coach', 'developer', 'contact'].map((item) => (
+          {['about', 'artist', 'coach', 'developer', 'tools', 'contact'].map((item) => (
             <button
               key={item}
               onClick={() => scrollToSection(item)}
