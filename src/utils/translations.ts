@@ -82,6 +82,7 @@ export const translations = {
 
     // Tools Section
     toolsBadge: 'Tools',
+    toolSoon: 'Soon',
     toolsTitle: 'My Trading & Studio Stack',
     toolsSubtitle: 'A growing suite of tools I use daily — charts, backtests, signals, and notes. Each one runs on its own subdomain.',
     tool_scanner_name: 'Scanner',
@@ -174,6 +175,7 @@ export const translations = {
 
     // Tools Section
     toolsBadge: 'Werkzeuge',
+    toolSoon: 'Bald',
     toolsTitle: 'Mein Trading- & Studio-Stack',
     toolsSubtitle: 'Eine wachsende Sammlung an Tools, die ich täglich nutze — Charts, Backtests, Signale, Notizen. Jedes läuft auf einer eigenen Subdomain.',
     tool_scanner_name: 'Scanner',

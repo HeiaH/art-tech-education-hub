@@ -7,13 +7,14 @@ type Tool = {
   url: string;
   icon: React.ElementType;
   accent: 'green' | 'blue' | 'purple' | 'orange';
+  status: 'live' | 'soon';
 };
 
 const TOOLS: Tool[] = [
-  { key: 'scanner', url: 'https://scanner.heiah.de', icon: LineChart,    accent: 'green'  },
-  { key: 'studio',  url: 'https://studio.heiah.de',  icon: FlaskConical, accent: 'blue'   },
-  { key: 'mission', url: 'https://mission.heiah.de', icon: Radar,        accent: 'purple' },
-  { key: 'vault',   url: 'https://vault.heiah.de',   icon: Library,      accent: 'orange' },
+  { key: 'scanner', url: 'https://scanner.heiah.de', icon: LineChart,    accent: 'green',  status: 'live' },
+  { key: 'mission', url: 'https://mission.heiah.de', icon: Radar,        accent: 'purple', status: 'live' },
+  { key: 'studio',  url: 'https://studio.heiah.de',  icon: FlaskConical, accent: 'blue',   status: 'soon' },
+  { key: 'vault',   url: 'https://vault.heiah.de',   icon: Library,      accent: 'orange', status: 'soon' },
 ];
 
 const ACCENT_CLASSES: Record<Tool['accent'], { text: string; ring: string; glow: string }> = {
@@ -46,14 +47,20 @@ const ToolsSection = () => {
           {TOOLS.map((tool, i) => {
             const Icon = tool.icon;
             const accent = ACCENT_CLASSES[tool.accent];
+            const isLive = tool.status === 'live';
+            const Wrapper = isLive ? 'a' : 'div';
+            const linkProps = isLive
+              ? { href: tool.url, target: '_blank', rel: 'noopener noreferrer' }
+              : { 'aria-disabled': true as const };
+
             return (
-              <a
+              <Wrapper
                 key={tool.key}
-                href={tool.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`group relative neumorph p-6 rounded-2xl ring-1 ring-white/5 transition-all duration-300 ${accent.ring} ${accent.glow} ${
-                  sectionVisible ? 'animate-fade-in opacity-100' : 'opacity-0'
+                {...linkProps}
+                className={`group relative neumorph p-6 rounded-2xl ring-1 ring-white/5 transition-all duration-300 ${
+                  isLive ? `${accent.ring} ${accent.glow} cursor-pointer` : 'opacity-60 cursor-not-allowed'
+                } ${sectionVisible ? 'animate-fade-in opacity-100' : 'opacity-0'} ${
+                  !isLive && sectionVisible ? '!opacity-60' : ''
                 }`}
                 style={{ animationDelay: `${i * 90}ms` }}
               >
@@ -61,17 +68,23 @@ const ToolsSection = () => {
                   <div className={`w-11 h-11 rounded-xl bg-heieh-dark/60 flex items-center justify-center ring-1 ring-white/10 ${accent.text}`}>
                     <Icon size={20} strokeWidth={1.8} />
                   </div>
-                  <ExternalLink size={14} className="text-white/30 group-hover:text-white/70 transition-colors" />
+                  {isLive ? (
+                    <ExternalLink size={14} className="text-white/30 group-hover:text-white/70 transition-colors" />
+                  ) : (
+                    <span className="text-[10px] uppercase tracking-wider text-white/40 px-2 py-0.5 rounded bg-white/5 border border-white/10">
+                      {t('toolSoon')}
+                    </span>
+                  )}
                 </div>
 
                 <h3 className="text-lg font-heading text-white mb-1.5">{t(`tool_${tool.key}_name`)}</h3>
                 <p className="text-sm text-white/60 leading-relaxed mb-4">{t(`tool_${tool.key}_desc`)}</p>
 
                 <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-white/40">
-                  <span className="w-1.5 h-1.5 rounded-full bg-heieh-neon-green animate-pulse" />
+                  <span className={`w-1.5 h-1.5 rounded-full ${isLive ? 'bg-heieh-neon-green animate-pulse' : 'bg-white/30'}`} />
                   <span className="font-mono">{tool.url.replace('https://', '')}</span>
                 </div>
-              </a>
+              </Wrapper>
             );
           })}
         </div>
