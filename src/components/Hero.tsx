@@ -27,7 +27,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="h-screen w-full flex flex-col items-center justify-center relative overflow-hidden">
+    <section className="min-h-screen md:h-screen w-full flex flex-col items-center justify-center relative overflow-hidden">
       {/* Background graphics */}
       <div 
         className="absolute inset-0 bg-gradient-radial opacity-40"

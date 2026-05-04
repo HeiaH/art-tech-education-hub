@@ -50,7 +50,7 @@ const ToolsSection = () => {
             const isLive = tool.status === 'live';
             const Wrapper = isLive ? 'a' : 'div';
             const linkProps = isLive
-              ? { href: tool.url, target: '_blank', rel: 'noopener noreferrer' }
+              ? { href: tool.url }
               : { 'aria-disabled': true as const };
 
             return (
