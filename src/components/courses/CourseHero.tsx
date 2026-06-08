@@ -78,6 +78,25 @@ const CourseHero = () => {
           </Button>
         </div>
 
+        {/* Social proof */}
+        <div
+          className={`mt-6 flex items-center justify-center gap-3 text-white/40 text-xs transition-all duration-1000 delay-700 ${
+            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
+          <span className="flex items-center gap-1.5">
+            <span className="text-heieh-neon-green">★</span> 100+ songwriters enrolled
+          </span>
+          <span className="w-1 h-1 rounded-full bg-white/20" />
+          <span className="flex items-center gap-1.5">
+            <span className="text-heieh-neon-green">✓</span> 30-day money-back
+          </span>
+          <span className="w-1 h-1 rounded-full bg-white/20" />
+          <span className="flex items-center gap-1.5">
+            <span className="text-heieh-neon-blue">⚡</span> Start in 5 min
+          </span>
+        </div>
+
         {/* Scroll hint */}
         <button
           onClick={() => scrollTo('features')}

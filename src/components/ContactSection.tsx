@@ -12,6 +12,7 @@ const ContactSection = () => {
     email: '',
     message: ''
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { ref: sectionRef, isVisible: sectionVisible } = useRevealAnimation();
 
@@ -19,26 +20,65 @@ const ContactSection = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors(prev => {
+        const next = { ...prev };
+        delete next[name];
+        return next;
+      });
+    }
+  };
+
+  // Validate form fields
+  const validate = (): boolean => {
+    const newErrors: Record<string, string> = {};
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email';
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validate()) return;
     setIsSubmitting(true);
     
-    // Open default email client with pre-filled email
-    const subject = encodeURIComponent(`Message from ${formData.name}`);
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-    window.location.href = `mailto:lucien.kreiser@gmail.com?subject=${subject}&body=${body}`;
-    
-    // Show success message
-    toast({
-      title: t('messageSent'),
-      description: t('thankYouMessage'),
-    });
-    
-    setFormData({ name: '', email: '', message: '' });
-    setIsSubmitting(false);
+    try {
+      // Open default email client with pre-filled email
+      const subject = encodeURIComponent(`Message from ${formData.name}`);
+      const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+      window.location.href = `mailto:lucien.kreiser@gmail.com?subject=${subject}&body=${body}`;
+      
+      // Show success message
+      toast({
+        title: t('messageSent'),
+        description: t('thankYouMessage'),
+      });
+      
+      setFormData({ name: '', email: '', message: '' });
+      setErrors({});
+    } catch {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Could not send message. Please try again or email directly.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -77,9 +117,16 @@ const ContactSection = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full bg-heieh-gray border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:neon-border neumorph"
+                className={`w-full bg-heieh-gray border rounded-lg p-3 text-white focus:outline-none neumorph ${
+                  errors.name ? 'border-red-500/60' : 'border-white/10 focus:border-heieh-neon-green/50'
+                }`}
                 placeholder={t('namePlaceholder')}
               />
+              {errors.name && (
+                <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1">
+                  <span>⚠</span> {errors.name}
+                </p>
+              )}
             </div>
             
             <div className="mb-6">
@@ -94,9 +141,16 @@ const ContactSection = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full bg-heieh-gray border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:neon-border neumorph"
+                className={`w-full bg-heieh-gray border rounded-lg p-3 text-white focus:outline-none neumorph ${
+                  errors.email ? 'border-red-500/60' : 'border-white/10 focus:border-heieh-neon-green/50'
+                }`}
                 placeholder={t('emailPlaceholder')}
               />
+              {errors.email && (
+                <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1">
+                  <span>⚠</span> {errors.email}
+                </p>
+              )}
             </div>
             
             <div className="mb-6">
@@ -111,9 +165,16 @@ const ContactSection = () => {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full bg-heieh-gray border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:neon-border resize-none neumorph"
+                className={`w-full bg-heieh-gray border rounded-lg p-3 text-white focus:outline-none resize-none neumorph ${
+                  errors.message ? 'border-red-500/60' : 'border-white/10 focus:border-heieh-neon-green/50'
+                }`}
                 placeholder={t('messagePlaceholder')}
               />
+              {errors.message && (
+                <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1">
+                  <span>⚠</span> {errors.message}
+                </p>
+              )}
             </div>
             
             <button

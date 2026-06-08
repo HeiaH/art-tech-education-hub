@@ -23,6 +23,8 @@ Live at **heiah.de**, deployed via **Vercel** from the `main` branch on GitHub (
 | `/register` | `src/pages/Register.tsx` | Email/password registration |
 | `/dashboard` | `src/pages/Dashboard.tsx` | Member dashboard (protected) |
 | `/course/:moduleId` | `src/pages/CoursePlayer.tsx` | Course lesson viewer (protected) |
+| `/payment/success` | `src/pages/PaymentSuccess.tsx` | Post-checkout success page (sets local purchase marker) |
+| `/payment/cancel` | `src/pages/PaymentCancel.tsx` | Checkout cancellation page |
 | `*` | `src/pages/NotFound.tsx` | 404 |
 
 `vercel.json` contains a catch-all rewrite to `index.html` so client-side routes work on Vercel.
@@ -44,6 +46,8 @@ src/
 │   ├── Register.tsx           # Auth registration page
 │   ├── Dashboard.tsx          # Member dashboard (protected)
 │   ├── CoursePlayer.tsx       # Course lesson viewer (protected)
+│   ├── PaymentSuccess.tsx     # Post-checkout success w/ purchase marker
+│   ├── PaymentCancel.tsx      # Checkout cancellation page
 │   └── NotFound.tsx
 ├── components/
 │   ├── Navigation.tsx         # Portfolio nav (glassmorphic, sticky)
@@ -78,6 +82,7 @@ src/
 ├── hooks/
 │   ├── useLanguage.tsx        # EN/DE i18n context
 │   ├── useAuth.tsx            # Supabase auth context (user, signIn, signUp, signOut)
+│   ├── useSubscription.tsx    # Stripe webhook subscription status check
 │   ├── use-mobile.tsx         # Boolean mobile breakpoint (< 768px)
 │   └── use-toast.ts           # Toast state management
 ├── lib/
@@ -271,12 +276,58 @@ All Radix UI primitives available via `@radix-ui/*`.
 
 The following is planned but not implemented:
 
-- ~~**Supabase auth**~~ — **DONE**: sign up, login, protected routes, auth context
-- **Stripe payments** — actual checkout for course and membership tiers
 - **Cal.com integration** — booking embed (currently just an external link)
 - **Course player** — interactive lesson viewer with progress tracking
 - **Exercises system** — interactive exercises within lessons
-- ~~**Member area**~~ — **DONE**: dashboard with course list, progress bars, quick actions
+- ~~**Stripe payments**~~ — **DONE**: checkout redirect, success/cancel pages, client-side purchase marker via localStorage
+- **Stripe <-> Supabase webhook** — see below
+
+---
+
+## Stripe Payments — Implementation Status
+
+### ✅ Done
+- `src/lib/stripe.ts` — `redirectToCheckout()` with price IDs from `.env`, dynamic success/cancel URLs
+- `src/components/courses/PricingSection.tsx` — CTA buttons call `redirectToCheckout('course'|'membership')`
+- `src/pages/PaymentSuccess.tsx` — thanks page, sets `localStorage.heiah_purchases` marker
+- `src/pages/PaymentCancel.tsx` — cancellation page
+- Routes in `App.tsx`: `/payment/success`, `/payment/cancel`
+
+### 🔴 Open: Stripe Webhook + Supabase User Sync
+
+**Problem:** After a successful Stripe checkout, the purchased user's Supabase `subscriptions` table needs to be updated to grant course/membership/coaching access on the server side.
+
+**Status: Webhook handler deployed on Hetzner ✅**
+
+The webhook handler is now live at `POST https://api.heiah.de/api/stripe-webhook`:
+- `webhook/stripe_webhook.py` on Hetzner (FastAPI route in heiah-engine)
+- Verifies Stripe webhook signature
+- Maps price IDs to tiers (`course`/`membership`/`coaching`)
+- Upserts Supabase `subscriptions` table via service_role key
+- Fallback endpoints: `GET /api/subscription-status?email=...`
+
+**What's still needed to activate:**
+
+| Step | What | Status |
+|------|------|--------|
+| 1 | Supabase project re-create or re-activate | 🔴 **Blocked** — `cxtppyoxnhoyamaksapo.supabase.co` resolves NXDOMAIN |
+| 2 | Run SQL migration `supabase-migration-stripe-webhook.sql` | 🔴 Blocked by step 1 |
+| 3 | Set `STRIPE_WEBHOOK_SECRET` in `/opt/heiah/.env` | 🔴 Needs Stripe Dashboard → Webhooks |
+| 4 | Set `SUPABASE_SERVICE_ROLE_KEY` in `/opt/heiah/.env` | 🔴 Blocked by step 1 |
+| 5 | Register webhook URL in Stripe Dashboard → Webhooks | ⏳ After step 3 |
+| 6 | Set `SUPABASE_URL` in `/opt/heiah/.env` | 🔴 Blocked by step 1 |
+
+**Client-side fallback (current):**
+- `src/hooks/useSubscription.ts` — fetches from `/api/subscription-status`, falls back to localStorage
+- `src/pages/Dashboard.tsx` — shows subscription status indicator and access information
+- localStorage `heiah_purchases` is still the stopgap until webhook is fully configured
+
+**Required env vars on Hetzner (`/opt/heiah/.env`):**
+```env
+STRIPE_WEBHOOK_SECRET=***          # Stripe Dashboard → Webhooks → signing secret
+SUPABASE_SERVICE_ROLE_KEY=***      # Supabase Dashboard → Settings → API
+SUPABASE_URL=https://xxx.supabase.co
+```
 
 ---
 

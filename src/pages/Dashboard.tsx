@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { useSubscription } from '@/hooks/useSubscription';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Music, BookOpen, ArrowRight, LogOut, Play } from 'lucide-react';
+import { Music, BookOpen, ArrowRight, LogOut, Play, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
 const modules = [
   { id: 1, title: 'The Architecture of a Song', progress: 0 },
@@ -14,6 +15,13 @@ const modules = [
 
 const Dashboard = () => {
   const { user, signOut } = useAuth();
+  const { status, hasAccess, subscriptions, error } = useSubscription(user?.email);
+
+  const localPurchases = (() => {
+    try {
+      return JSON.parse(localStorage.getItem('heiah_purchases') || '[]');
+    } catch { return []; }
+  })();
 
   return (
     <div className="min-h-screen bg-heieh-dark">
@@ -49,6 +57,43 @@ const Dashboard = () => {
           <p className="text-white/50">
             {user?.email}
           </p>
+
+          {/* Subscription status — checks both server API + localStorage fallback */}
+          <div className="mt-4">
+            {status === 'loading' && (
+              <div className="flex items-center gap-2 text-sm text-white/40">
+                <Loader2 size={14} className="animate-spin" />
+                Checking subscription...
+              </div>
+            )}
+            {status === 'ok' && hasAccess && (
+              <div className="flex items-center gap-2 text-sm text-heieh-neon-green">
+                <CheckCircle size={14} />
+                Active subscription: {subscriptions.map(s => s.tier).join(', ')}
+              </div>
+            )}
+            {status === 'not_configured' && localPurchases.length > 0 && (
+              <div className="flex items-center gap-2 text-sm text-heieh-neon-green">
+                <CheckCircle size={14} />
+                Course access (local) — {localPurchases.join(', ')}
+              </div>
+            )}
+            {status === 'ok' && !hasAccess && localPurchases.length === 0 && (
+              <div className="flex items-center gap-2 text-sm text-amber-400">
+                <AlertCircle size={14} />
+                No active subscription —{' '}
+                <Link to="/learn#pricing" className="underline hover:text-amber-300">
+                  Browse plans
+                </Link>
+              </div>
+            )}
+            {status === 'error' && localPurchases.length === 0 && (
+              <div className="flex items-center gap-2 text-sm text-amber-400">
+                <AlertCircle size={14} />
+                Could not verify access. <Link to="/learn#pricing" className="underline">Get a plan</Link>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Quick actions */}

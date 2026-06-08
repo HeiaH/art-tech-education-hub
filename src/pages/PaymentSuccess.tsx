@@ -1,111 +1,107 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { CheckCircle, Sparkles } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { CheckCircle, Music, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const CONFETTI_COUNT = 60;
-
-interface ConfettiPiece {
-  id: number;
-  left: string;
-  delay: string;
-  duration: string;
-  color: string;
-  size: number;
-}
-
 const PaymentSuccess = () => {
-  const [confetti, setConfetti] = useState<ConfettiPiece[]>([]);
-  const [visible, setVisible] = useState(false);
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [purchaseSaved, setPurchaseSaved] = useState(false);
 
   useEffect(() => {
-    const colors = ['#1DB954', '#1a73e8', '#ffffff', '#f0f0f0', '#1DB954'];
-    const pieces: ConfettiPiece[] = Array.from({ length: CONFETTI_COUNT }, (_, i) => ({
-      id: i,
-      left: `${Math.random() * 100}%`,
-      delay: `${Math.random() * 2}s`,
-      duration: `${2 + Math.random() * 3}s`,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      size: 4 + Math.random() * 8,
-    }));
-    setConfetti(pieces);
-    setTimeout(() => setVisible(true), 100);
-  }, []);
+    // Client-side purchase marker: store in localStorage so the dashboard
+    // can show course access even without a backend webhook.
+    const purchased = localStorage.getItem('heiah_purchases');
+    const purchases: string[] = purchased ? JSON.parse(purchased) : [];
+
+    if (!purchases.includes('course')) {
+      purchases.push('course');
+      localStorage.setItem('heiah_purchases', JSON.stringify(purchases));
+    }
+
+    setPurchaseSaved(true);
+
+    // Redirect to dashboard after 5 seconds if user is logged in
+    const timer = setTimeout(() => {
+      if (user) navigate('/dashboard');
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [user, navigate]);
 
   return (
-    <div className="min-h-screen bg-heieh-dark flex items-center justify-center relative overflow-hidden">
-      {/* Confetti */}
-      {confetti.map((piece) => (
-        <div
-          key={piece.id}
-          className="absolute top-0 animate-confetti-fall pointer-events-none"
-          style={{
-            left: piece.left,
-            animationDelay: piece.delay,
-            animationDuration: piece.duration,
-            width: piece.size,
-            height: piece.size,
-            backgroundColor: piece.color,
-            borderRadius: Math.random() > 0.5 ? '50%' : '2px',
-            transform: `rotate(${Math.random() * 360}deg)`,
-          }}
-        />
-      ))}
-
-      {/* Content */}
-      <div
-        className={`text-center px-6 max-w-lg transition-all duration-700 ${
-          visible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
-        }`}
-      >
-        <div className="neumorph rounded-2xl p-10 relative">
-          {/* Glow ring */}
-          <div className="absolute inset-0 rounded-2xl border border-heieh-neon-green/20 shadow-[0_0_60px_rgba(29,185,84,0.15)]" />
-
-          <div className="w-20 h-20 rounded-full bg-heieh-neon-green/10 flex items-center justify-center mx-auto mb-6">
-            <CheckCircle size={40} className="text-heieh-neon-green" />
+    <div className="min-h-screen bg-heieh-dark flex items-center justify-center px-6">
+      <div className="max-w-md w-full text-center">
+        {/* Success icon */}
+        <div className="mb-8 flex justify-center">
+          <div className="w-20 h-20 rounded-full bg-heieh-neon-green/15 flex items-center justify-center animate-scale-in">
+            <CheckCircle size={44} className="text-heieh-neon-green" />
           </div>
+        </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-3 font-heading">
-            You're in!
-          </h1>
+        {/* Heading */}
+        <h1 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+          Danke für deinen Kauf! 🎉
+        </h1>
 
-          <p className="text-white/60 text-lg mb-2">
-            Thanks for your purchase.
+        {/* Subtitle */}
+        <p className="text-white/60 text-lg mb-6 leading-relaxed">
+          Check deine E-Mails — du solltest in Kürze eine Bestätigung und
+          deine Zugangsdaten erhalten.
+        </p>
+
+        {/* Status indicator */}
+        {purchaseSaved && (
+          <p className="text-heieh-neon-green text-sm mb-8 flex items-center justify-center gap-2">
+            <CheckCircle size={14} />
+            Zugang wurde lokal aktiviert
           </p>
-          <p className="text-white/40 text-sm mb-8">
-            Your course access is now active. Check your email for a confirmation receipt.
-          </p>
+        )}
 
-          <Link to="/course">
-            <Button className="bg-heieh-neon-green hover:bg-heieh-neon-green/90 text-black font-semibold rounded-xl py-5 px-8 transition-all hover:shadow-[0_0_20px_rgba(29,185,84,0.35)] w-full sm:w-auto">
-              <Sparkles size={16} className="mr-2" />
-              Start Learning
+        {/* Action buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          {user ? (
+            <Link to="/dashboard">
+              <Button className="bg-heieh-neon-green hover:bg-heieh-neon-green/90 text-black font-semibold rounded-xl px-8 py-5 transition-all hover:shadow-[0_0_20px_rgba(29,185,84,0.35)]">
+                <span className="flex items-center gap-2">
+                  Zum Dashboard
+                  <ArrowRight size={16} />
+                </span>
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <Button className="bg-heieh-neon-green hover:bg-heieh-neon-green/90 text-black font-semibold rounded-xl px-8 py-5 transition-all hover:shadow-[0_0_20px_rgba(29,185,84,0.35)]">
+                <span className="flex items-center gap-2">
+                  Einloggen & Loslegen
+                  <ArrowRight size={16} />
+                </span>
+              </Button>
+            </Link>
+          )}
+
+          <Link to="/learn">
+            <Button
+              variant="outline"
+              className="border border-white/15 text-white/80 hover:bg-white/5 rounded-xl px-8 py-5 bg-transparent"
+            >
+              Zurück zum Kurs
             </Button>
           </Link>
+        </div>
 
-          <p className="text-white/25 text-xs mt-6">
-            Need help? Reach out at hello@heiah.de
-          </p>
+        {/* Home link */}
+        <div className="mt-10">
+          <Link
+            to="/"
+            className="text-white/30 hover:text-heieh-neon-green text-sm transition-colors flex items-center justify-center gap-2"
+          >
+            <Music size={14} />
+            heiah.de
+          </Link>
         </div>
       </div>
-
-      {/* Confetti keyframes injected via style tag */}
-      <style>{`
-        @keyframes confetti-fall {
-          0% {
-            transform: translateY(-10vh) rotate(0deg);
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(110vh) rotate(720deg);
-            opacity: 0;
-          }
-        }
-        .animate-confetti-fall {
-          animation: confetti-fall linear forwards;
-        }
-      `}</style>
     </div>
   );
 };

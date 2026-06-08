@@ -1,49 +1,59 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { XCircle, ArrowLeft } from 'lucide-react';
+import { XCircle, Music, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const PaymentCancel = () => {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => setVisible(true), 100);
-  }, []);
-
   return (
-    <div className="min-h-screen bg-heieh-dark flex items-center justify-center">
-      <div
-        className={`text-center px-6 max-w-lg transition-all duration-700 ${
-          visible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
-        }`}
-      >
-        <div className="neumorph rounded-2xl p-10 relative">
-          <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-6">
-            <XCircle size={40} className="text-white/40" />
+    <div className="min-h-screen bg-heieh-dark flex items-center justify-center px-6">
+      <div className="max-w-md w-full text-center">
+        {/* Cancel icon */}
+        <div className="mb-8 flex justify-center">
+          <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center animate-scale-in">
+            <XCircle size={44} className="text-white/40" />
           </div>
+        </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-3 font-heading">
-            Payment cancelled
-          </h1>
+        {/* Heading */}
+        <h1 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+          Kauf abgebrochen
+        </h1>
 
-          <p className="text-white/60 text-lg mb-2">
-            No worries — nothing was charged.
-          </p>
-          <p className="text-white/40 text-sm mb-8">
-            If you ran into an issue or have questions, feel free to reach out. Otherwise, you can
-            come back anytime.
-          </p>
+        {/* Subtitle */}
+        <p className="text-white/60 text-lg mb-8 leading-relaxed">
+          Keine Sorge, du kannst jederzeit zurückkommen und den Kauf
+          abschließen. Deine Daten sind sicher — es wurde nichts berechnet.
+        </p>
 
+        {/* Action buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link to="/learn#pricing">
-            <Button className="border border-white/15 text-white/80 hover:bg-white/5 rounded-xl py-5 px-8 bg-transparent w-full sm:w-auto">
-              <ArrowLeft size={16} className="mr-2" />
-              Back to Pricing
+            <Button className="bg-heieh-neon-green hover:bg-heieh-neon-green/90 text-black font-semibold rounded-xl px-8 py-5 transition-all hover:shadow-[0_0_20px_rgba(29,185,84,0.35)]">
+              <span className="flex items-center gap-2">
+                <ArrowLeft size={16} />
+                Zurück zu den Preisen
+              </span>
             </Button>
           </Link>
 
-          <p className="text-white/25 text-xs mt-6">
-            Need help? Reach out at hello@heiah.de
-          </p>
+          <Link to="/">
+            <Button
+              variant="outline"
+              className="border border-white/15 text-white/80 hover:bg-white/5 rounded-xl px-8 py-5 bg-transparent"
+            >
+              Zur Startseite
+            </Button>
+          </Link>
+        </div>
+
+        {/* Home link */}
+        <div className="mt-10">
+          <Link
+            to="/"
+            className="text-white/30 hover:text-heieh-neon-green text-sm transition-colors flex items-center justify-center gap-2"
+          >
+            <Music size={14} />
+            heiah.de
+          </Link>
         </div>
       </div>
     </div>
