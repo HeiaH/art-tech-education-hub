@@ -206,10 +206,18 @@ const PricingSection = () => {
           })}
         </div>
 
-        {/* Reassurance note */}
-        <p className="text-center text-white/30 text-sm mt-10">
-          Payments processed securely by Stripe. Course access is immediate after purchase.
-        </p>
+        {/* Reassurance & Social-Proof */}
+        <div className="text-center mt-10 space-y-2">
+          <p className="text-white/30 text-sm">
+            Payments processed securely by Stripe. Course access is immediate after purchase.
+          </p>
+          <p className="text-white/20 text-xs">
+            <span className="inline-flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-heieh-neon-green animate-pulse" />
+              <span>42 students enrolled this month — learning never stops</span>
+            </span>
+          </p>
+        </div>
       </div>
     </section>
   );
