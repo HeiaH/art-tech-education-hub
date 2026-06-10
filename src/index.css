@@ -70,8 +70,6 @@
 .logo-container {
   position: relative;
   display: inline-block;
-  transform-style: preserve-3d;
-  perspective: 600px;
 }
 
 .logo {
