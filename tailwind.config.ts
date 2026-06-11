@@ -63,7 +63,7 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom colors for HeiǝH portfolio
+				// Custom colors for Heiah portfolio
 				heieh: {
 					dark: '#121212',
 					gray: '#1a1a1a',
@@ -106,10 +106,6 @@ export default {
 					'0%': { opacity: '0', transform: 'scale(0.95)' },
 					'100%': { opacity: '1', transform: 'scale(1)' },
 				},
-				'rotate-y': {
-					'0%': { transform: 'rotateY(0deg)' },
-					'100%': { transform: 'rotateY(180deg)' },
-				},
 				'glow': {
 					'0%': { filter: 'brightness(100%)' },
 					'50%': { filter: 'brightness(150%)' },
@@ -141,7 +137,6 @@ export default {
 				'fade-in-right': 'fade-in-right 0.6s ease-out forwards',
 				'fade-in-left': 'fade-in-left 0.6s ease-out forwards',
 				'scale-in': 'scale-in 0.5s ease-out forwards',
-				'rotate-y': 'rotate-y 0.5s ease-out forwards',
 				'glow': 'glow 2s ease-in-out infinite',
 				'float': 'float 6s ease-in-out infinite',
 				'float-slow': 'float-slow 8s ease-in-out infinite',

@@ -121,7 +121,7 @@ CSS variables also defined for all shadcn tokens — see `src/index.css`.
 | `.appear-animation` | Start state for scroll reveals (opacity 0, translateY 30px) |
 | `.reveal-animation` | End state (opacity 1, translateY 0) |
 | `.section-padding` | py-24 (desktop) / py-16 (mobile) |
-| `.logo-container` | 3D perspective wrapper — logo rotates 180° on hover |
+| `.logo-container` | Logo wrapper — hover scales logo to 1.05x (no rotation) |
 
 ### Animations (Tailwind config)
 
