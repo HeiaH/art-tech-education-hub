@@ -127,9 +127,8 @@ CSS variables also defined for all shadcn tokens — see `src/index.css`.
 
 - `animate-float` — gentle vertical oscillation (6s)
 - `animate-float-slow` — slower float (8s)
-- `animate-glow` — opacity pulse (2s)
-- `animate-fade-in` / `animate-fade-in-left` / `animate-fade-in-right`
-- `animate-scale-in`
+- `animate-fade-in` — opacity 0→1 + translateY 20→0
+- `animate-scale-in` — opacity 0→1 + scale 0.95→1
 - `bg-grid-pattern` — dot grid overlay
 - `bg-gradient-radial` — radial neon glow
 
