@@ -7,37 +7,6 @@
   text-align: left;
 }
 
-/* Remove any legacy styles that might conflict with our design */
-.logo {
-  will-change: filter;
-}
-
-/* Custom animations and effects */
-@keyframes shine {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
-
-.neon-text-shine {
-  background: linear-gradient(
-    90deg,
-    rgba(29, 185, 84, 0.7) 0%,
-    rgba(29, 185, 84, 1) 25%,
-    rgba(29, 185, 84, 1) 50%,
-    rgba(29, 185, 84, 1) 75%,
-    rgba(29, 185, 84, 0.7) 100%
-  );
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shine 4s linear infinite;
-}
-
 /* Enhanced button hover effect */
 a.neumorph:hover, 
 button.neumorph:hover {
