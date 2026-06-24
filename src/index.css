@@ -152,3 +152,8 @@
     padding-bottom: 4rem;
   }
 }
+
+/* Scroll margin for sticky nav — nav is 56-64px, 80px gives headroom */
+section[id] {
+  scroll-margin-top: 80px;
+}

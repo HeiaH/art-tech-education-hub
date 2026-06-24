@@ -112,7 +112,7 @@ CSS variables also defined for all shadcn tokens — see `src/index.css`.
 ### Global CSS Classes (src/index.css)
 
 | Class | Effect |
-|---|---|
+|---|---|---|
 | `.neumorph` | Neumorphic card shadow (dark raised) |
 | `.neumorph-hover` | Inset shadow on hover |
 | `.glassmorphism` | Frosted glass (blur + dark bg) — used on nav |
@@ -122,6 +122,7 @@ CSS variables also defined for all shadcn tokens — see `src/index.css`.
 | `.reveal-animation` | End state (opacity 1, translateY 0) |
 | `.section-padding` | py-24 (desktop) / py-16 (mobile) |
 | `.logo-container` | Logo wrapper — hover scales logo to 1.05x (no rotation) |
+| `section[id] { scroll-margin-top: 80px }` | Prevents fixed sticky nav (56-64px) from covering section headers on anchor scroll |
 
 ### Animations (Tailwind config)
 
